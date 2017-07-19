@@ -2,9 +2,10 @@
 #define uString_h__
 
 #include "base.h"
-#include "uEncodingHelper.h"
-#include "uRefCounter.h"
+#include "EncodingHelper.h"
+#include "Reference.h"
 #include <stdarg.h>
+namespace Basic {
 
 class uString {
   public:
@@ -136,15 +137,15 @@ class uString {
     }
   private:
 
-    bool convertTo(uBuffer& buffer, Encoding src, Encoding dst, const char* str, size_t len) {
-        uEncodingHelper::EncodingConverter convert = uEncodingHelper::getConverter(src, dst);
+    bool convertTo(Buffer& buffer, Encoding src, Encoding dst, const char* str, size_t len) {
+        EncodingHelper::EncodingConverter convert = EncodingHelper::getConverter(src, dst);
         if (convert) {
             return convert(buffer, (const char*)str, len);
         }
         return false;
     }
-    bool convertTo(uBuffer& buffer, Encoding src, Encoding dst, const wchar_t* str, size_t len) {
-        uEncodingHelper::EncodingConverter convert = uEncodingHelper::getConverter(src, dst);
+    bool convertTo(Buffer& buffer, Encoding src, Encoding dst, const wchar_t* str, size_t len) {
+        EncodingHelper::EncodingConverter convert = EncodingHelper::getConverter(src, dst);
         if (convert) {
             return convert(buffer, (const char*)str, len * 2);
         }
@@ -180,7 +181,7 @@ class uString {
         }
     }
   private:
-    uRefCounter mRef;
+    Reference mRef;
     Encoding mEncoding;
     size_t mLengthOfByte;
 };
@@ -429,7 +430,7 @@ inline void uString::format(const char* fmt, ...) {
     va_list ap;
     va_start(ap, fmt);
     uStringBuffer stringbuffer;
-    uBuffer& buffer = stringbuffer.buffer();
+    Buffer& buffer = stringbuffer.buffer();
     vsnprintf_s(buffer.getPointer(), buffer.length(), _TRUNCATE, fmt, ap);
     va_end(ap);
     size_t len = strlen(buffer.getPointer());
@@ -553,7 +554,7 @@ inline uString&  uString::append(size_t cnt, char c) {
         return *this;
     }
     uStringBuffer stringbuffer;
-    uBuffer& buffer = stringbuffer.buffer();
+    Buffer& buffer = stringbuffer.buffer();
     buffer.setSize(cnt + 1);
     assert(cnt < buffer.capacity());
     memset(buffer.getPointer(), c, cnt);
@@ -590,7 +591,7 @@ inline uString&  uString::append(size_t cnt, wchar_t c) {
         return *this;
     }
     uStringBuffer stringbuffer;
-    uBuffer& buffer = stringbuffer.buffer();
+    Buffer& buffer = stringbuffer.buffer();
     buffer.setSize((u32)(cnt * 2));
     assert(cnt < buffer.capacity());
     memset(buffer.getPointer(), c, cnt * sizeof(wchar_t));
@@ -650,6 +651,7 @@ inline bool uString::end_withw(const wchar_t* str) {
     } else {
         return unicode().end_withw(str);
     }
+}
 }
 
 #endif // uString_h__

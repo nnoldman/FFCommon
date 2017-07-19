@@ -2,36 +2,16 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClInclude Include="base.h" />
-    <ClInclude Include="XBitArray.h" />
-    <ClInclude Include="XColor.h" />
-    <ClInclude Include="XHashMap.h" />
-    <ClInclude Include="XIDObjectManager.h" />
-    <ClInclude Include="XLexer.h" />
-    <ClInclude Include="XObjectPool.h" />
-    <ClInclude Include="XPoint2.h" />
-    <ClInclude Include="XRect.h" />
-    <ClInclude Include="XStrongPtr.h" />
-    <ClInclude Include="XVector3.h" />
-    <ClInclude Include="XEaser.h" />
-    <ClInclude Include="XStringHelper.h" />
     <ClInclude Include="XEnum.h" />
     <ClInclude Include="XIndex.h" />
     <ClInclude Include="XMultimap.h" />
-    <ClInclude Include="XFileName.hpp" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="XBase.h" />
-    <ClInclude Include="XBiTree.h" />
-    <ClInclude Include="XFileLoader.h" />
     <ClInclude Include="XList.h" />
     <ClInclude Include="XMath.h" />
     <ClInclude Include="XProp.h" />
-    <ClInclude Include="XRandom.h" />
-    <ClInclude Include="XRapidxmlLoader.h" />
-    <ClInclude Include="XRapidxmlWriter.h" />
     <ClInclude Include="XSingleton.h" />
-    <ClInclude Include="XStack.h" />
     <ClInclude Include="XTime.h" />
-    <ClInclude Include="XWeakPtr.h" />
     <ClInclude Include="Rapidxml\rapidxml.hpp">
       <Filter>rapidxml</Filter>
     </ClInclude>
@@ -47,16 +27,36 @@
     <ClInclude Include="Rapidxml\rapidxml_utils.hpp">
       <Filter>rapidxml</Filter>
     </ClInclude>
-    <ClInclude Include="uString.h" />
-    <ClInclude Include="uEncodingHelper.h" />
-    <ClInclude Include="uRefCounter.h" />
     <ClInclude Include="Tree.h" />
-    <ClInclude Include="uPathFinder.h" />
-    <ClInclude Include="uPlatform.h" />
-    <ClInclude Include="uCommandLine.h" />
-    <ClInclude Include="uMap.h" />
-    <ClInclude Include="uArray.h" />
-    <ClInclude Include="uDelegate.h" />
+    <ClInclude Include="Array.h" />
+    <ClInclude Include="CommandLine.h" />
+    <ClInclude Include="Delegate.h" />
+    <ClInclude Include="Map.h" />
+    <ClInclude Include="EncodingHelper.h" />
+    <ClInclude Include="BitArray.h" />
+    <ClInclude Include="BiTree.h" />
+    <ClInclude Include="Color.h" />
+    <ClInclude Include="Easer.h" />
+    <ClInclude Include="FileLoader.h" />
+    <ClInclude Include="RapidxmlLoader.h" />
+    <ClInclude Include="RapidxmlWriter.h" />
+    <ClInclude Include="Rect.h" />
+    <ClInclude Include="Point2.h" />
+    <ClInclude Include="Random.h" />
+    <ClInclude Include="Stack.h" />
+    <ClInclude Include="StringHelper.h" />
+    <ClInclude Include="Pointer.h" />
+    <ClInclude Include="WeakPointer.h" />
+    <ClInclude Include="Vector3.h" />
+    <ClInclude Include="ObjectPool.h" />
+    <ClInclude Include="Platform.h" />
+    <ClInclude Include="Reference.h" />
+    <ClInclude Include="FilePathFinder.h" />
+    <ClInclude Include="IDObjects.h" />
+    <ClInclude Include="FileName.hpp" />
+    <ClInclude Include="HashMap.h" />
+    <ClInclude Include="Lexer.h" />
+    <ClInclude Include="uString.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="luawrapper-master\README.md" />
@@ -68,9 +68,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="uPathFinder.cpp" />
     <ClCompile Include="base.cpp" />
-    <ClCompile Include="uPlatform.cpp" />
-    <ClCompile Include="uCommandLine.cpp" />
+    <ClCompile Include="CommandLine.cpp" />
+    <ClCompile Include="Platform.cpp" />
+    <ClCompile Include="FilePathFinder.cpp" />
   </ItemGroup>
 </Project>
