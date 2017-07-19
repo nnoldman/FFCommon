@@ -52,13 +52,13 @@
 
 /** @brief 查找一个数组或vector中cur之后的第一个符合条件的元素 **/
 template<typename uArray, typename T, typename CondtionObj>
-T* dFindNextElementInArray ( uArray&  arr, T* cur, CondtionObj& funObj ) {
+T* dFindNextElementInArray(uArray&  arr, T* cur, CondtionObj& funObj) {
     bool existCur = false;
-    for ( auto & e : arr ) {
-        if ( existCur && funObj ( e ) ) {
+    for (auto & e : arr) {
+        if (existCur && funObj(e)) {
             return e;
         }
-        if ( e == cur ) {
+        if (e == cur) {
             existCur = true;
         }
     }
@@ -68,54 +68,54 @@ T* dFindNextElementInArray ( uArray&  arr, T* cur, CondtionObj& funObj ) {
 查找一棵树中(中序遍历)cur之后的第一个符合条件的元素
 **/
 template<typename T, typename CondtionObj>
-T* dFindNextElementInTree ( T*  parent, T* cur, CondtionObj& funObj ) {
-    CXASSERT ( parent );
-    CXASSERT ( cur );
+T* dFindNextElementInTree(T*  parent, T* cur, CondtionObj& funObj) {
+    CXASSERT(parent);
+    CXASSERT(cur);
     bool existCur = parent == cur;
     auto& children = parent->getChildren();
-    for ( auto & e : children ) {
-        if ( existCur && funObj ( e ) ) {
+    for (auto & e : children) {
+        if (existCur && funObj(e)) {
             return e;
         }
-        if ( e == cur ) {
+        if (e == cur) {
             existCur = true;
         }
-        T* tar = dFindNextElementInTree ( e, cur, funObj );
-        if ( tar != nullptr )
+        T* tar = dFindNextElementInTree(e, cur, funObj);
+        if (tar != nullptr)
             return tar;
     }
     return nullptr;
 }
 template<typename T, typename CondtionObj>
-T* dFindNextElementInTreeCycle ( T*  parent, T* cur, CondtionObj& funObj ) {
+T* dFindNextElementInTreeCycle(T*  parent, T* cur, CondtionObj& funObj) {
     uArray<T*> dstArray;
     bool begin = parent == cur;
     bool end = parent == cur;
-    takeElementToTopFromTreeToVector ( dstArray, parent, cur, begin );
-    takeElementToVectorUntil ( dstArray, parent, cur, end );
-    return dFindNextElementInArray ( dstArray, cur, funObj );
+    takeElementToTopFromTreeToVector(dstArray, parent, cur, begin);
+    takeElementToVectorUntil(dstArray, parent, cur, end);
+    return dFindNextElementInArray(dstArray, cur, funObj);
 }
 template<typename T>
-void takeElementToTopFromTreeToVector ( uArray<T*>& dstArray, T* parent, T* cur, bool& begin ) {
-    if ( parent == cur )
+void takeElementToTopFromTreeToVector(uArray<T*>& dstArray, T* parent, T* cur, bool& begin) {
+    if (parent == cur)
         begin = true;
-    if ( begin )
-        dstArray.push_back ( parent );
+    if (begin)
+        dstArray.push_back(parent);
     auto& children = parent->getChildren();
-    for ( auto & a : children )
-        takeElementToTopFromTreeToVector ( dstArray, a, cur, begin );
+    for (auto & a : children)
+        takeElementToTopFromTreeToVector(dstArray, a, cur, begin);
 }
 template<typename T>
-void takeElementToVectorUntil ( uArray<T*>& dstArray, T* parent, T* cur, bool& end ) {
-    if ( parent == cur ) {
+void takeElementToVectorUntil(uArray<T*>& dstArray, T* parent, T* cur, bool& end) {
+    if (parent == cur) {
         end = true;
         return;
     }
-    if ( !end )
-        dstArray.push_back ( parent );
+    if (!end)
+        dstArray.push_back(parent);
     auto& children = parent->getChildren();
-    for ( auto & a : children )
-        takeElementToVectorUntil ( dstArray, a, cur, end );
+    for (auto & a : children)
+        takeElementToVectorUntil(dstArray, a, cur, end);
 
 }
 
