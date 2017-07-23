@@ -1,8 +1,10 @@
-#ifndef CXStringHelper_h__
-#define CXStringHelper_h__
+#ifndef StringHelper_h__
+#define StringHelper_h__
 #include <xstring>
-namespace Basic {
-
+#include "Buffer.h"
+#include "CharBuffer.h"
+#include "uString.h"
+using namespace Basic;
 namespace StringHelper {
 template<typename T>
 void toString(std::string& dst, T* var) {
@@ -20,9 +22,30 @@ void setValue(const char* val, float* var);
 void setValue(const char* val, bool* var);
 void setValue(const char* val, unsigned int* var);
 void setValue(const char* val, long* var);
+void setValue(const char* val, char* var);
+void setValue(const char* val, u8* var);
+void setValue(const char* val, u16* var);
+void setValue(const char* val, s16* var);
+void setValue(const char* val, u64* var);
+void setValue(const char* val, s64* var);
+void setValue(const char* val, double* var);
+
+template<int N>
+inline void toString(std::string& dst, CharBuffer<N>* var) {
+    CXASSERT(var);
+    dst = var->getString();
 }
+
+template<int N>
+inline void setValue(const char* val, CharBuffer<N>* var) {
+    var->setString(val);
+}
+}
+
+
 #pragma warning(push)
 #pragma warning(disable:4996)
+
 inline void StringHelper::toString(std::string& dst, uString* var) {
     CXASSERT(var);
     dst = var->c_str();
@@ -32,7 +55,6 @@ inline void toString(std::string& dst, string* var) {
     CXASSERT(var);
     dst = var->c_str();
 }
-
 
 
 inline void StringHelper::toString(std::string& dst, bool* var) {
@@ -69,7 +91,30 @@ inline void StringHelper::setValue(const char* val, unsigned int* var) {
 inline void StringHelper::setValue(const char* val, long* var) {
     *var = stol(val);
 }
+
+inline void StringHelper::setValue(const char* val, char* var) {
+    *var = val[0];
+}
+
+inline void StringHelper::setValue(const char* val, u8* var) {
+    *var = (u8)stoi(val);
+}
+
+inline void setValue(const char* val, u16* var) {
+    *var = (u16)stoi(val);
+}
+inline void setValue(const char* val, u64* var) {
+    *var = (u64)stoll(val);
+}
+inline void setValue(const char* val, double* var) {
+    *var = stod(val);
+}
+inline void setValue(const char* val, s16* var) {
+    *var = (s16)stoi(val);
+}
+inline void setValue(const char* val, s64* var) {
+    *var = (s64)stold(val);
 }
 
 #pragma warning(pop)
-#endif // CXStringHelper_h__
+#endif // StringHelper_h__
