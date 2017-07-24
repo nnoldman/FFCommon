@@ -7,7 +7,7 @@
 namespace Basic {
 
 /** @brief 兼容qt,加的类型识别 **/
-enum ePropertyType {
+enum PropertyType {
     eType_Bool,
     eType_Int,
     eType_UInt,
@@ -17,30 +17,30 @@ enum ePropertyType {
     eType_Enum,
     eType_UnKnown,
 };
-namespace CXPropHelper {
+namespace PropertyHelper {
 template<typename T>
-inline ePropertyType getType() {
+inline PropertyType getType() {
     return eType_UnKnown;
 }
-template<> inline ePropertyType getType<int>() {
+template<> inline PropertyType getType<int>() {
     return eType_Int;
 }
-template<> inline ePropertyType getType<unsigned int>() {
+template<> inline PropertyType getType<unsigned int>() {
     return eType_UInt;
 }
-template<> inline ePropertyType getType<long>() {
+template<> inline PropertyType getType<long>() {
     return eType_Int;
 }
-template<> inline ePropertyType getType<bool>() {
+template<> inline PropertyType getType<bool>() {
     return eType_Bool;
 }
-template<> inline ePropertyType getType<float>() {
+template<> inline PropertyType getType<float>() {
     return eType_Float;
 }
-template<> inline ePropertyType getType<double>() {
+template<> inline PropertyType getType<double>() {
     return eType_Double;
 }
-template<> inline ePropertyType getType<uString>() {
+template<> inline PropertyType getType<uString>() {
     return eType_String;
 }
 }
@@ -50,7 +50,7 @@ class CXProp {
     virtual ~CXProp(void);
     virtual void toString(std::string& dst) = 0;
     virtual void setValue(const char* val) = 0;
-    virtual ePropertyType getType() {
+    virtual PropertyType getType() {
         return eType_UnKnown;
     }
 };
@@ -61,7 +61,7 @@ class  CXPropEntity : public CXProp {
     ~CXPropEntity();
     virtual void toString(std::string& dst);
     virtual void setValue(const char* val);
-    virtual ePropertyType getType();
+    virtual PropertyType getType();
 
     T* mVar;
   private:
@@ -69,8 +69,8 @@ class  CXPropEntity : public CXProp {
 };
 
 template<typename T>
-ePropertyType CXPropEntity<T>::getType() {
-    return CXPropHelper::getType<T>();
+PropertyType CXPropEntity<T>::getType() {
+    return PropertyHelper::getType<T>();
 }
 
 template<typename T>
@@ -106,7 +106,7 @@ class CXPropEnum : public CXPropEntity<int> {
     virtual void toString(std::string& dst);
     virtual void setValue(const char* val);
 
-    virtual ePropertyType getType();
+    virtual PropertyType getType();
     u32 getIndex() const;
     u32 getIndex(int var) const;
     u32 getIndex(const char* name) const;
@@ -122,7 +122,7 @@ inline CXProp::~CXProp(void) {
 
 
 
-inline ePropertyType CXPropEnum::getType() {
+inline PropertyType CXPropEnum::getType() {
     return eType_Enum;
 }
 

@@ -51,7 +51,7 @@ inline void StringHelper::toString(std::string& dst, uString* var) {
     dst = var->c_str();
 }
 
-inline void toString(std::string& dst, string* var) {
+inline void StringHelper::toString(std::string& dst, string* var) {
     CXASSERT(var);
     dst = var->c_str();
 }
@@ -100,19 +100,19 @@ inline void StringHelper::setValue(const char* val, u8* var) {
     *var = (u8)stoi(val);
 }
 
-inline void setValue(const char* val, u16* var) {
+inline void StringHelper::setValue(const char* val, u16* var) {
     *var = (u16)stoi(val);
 }
-inline void setValue(const char* val, u64* var) {
+inline void StringHelper::setValue(const char* val, u64* var) {
     *var = (u64)stoll(val);
 }
-inline void setValue(const char* val, double* var) {
+inline void StringHelper::setValue(const char* val, double* var) {
     *var = stod(val);
 }
-inline void setValue(const char* val, s16* var) {
+inline void StringHelper::setValue(const char* val, s16* var) {
     *var = (s16)stoi(val);
 }
-inline void setValue(const char* val, s64* var) {
+inline void StringHelper::setValue(const char* val, s64* var) {
     *var = (s64)stold(val);
 }
 
