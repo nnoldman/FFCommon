@@ -57,6 +57,8 @@
     <ClInclude Include="HashMap.h" />
     <ClInclude Include="Lexer.h" />
     <ClInclude Include="uString.h" />
+    <ClInclude Include="CharBuffer.h" />
+    <ClInclude Include="Value.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="luawrapper-master\README.md" />

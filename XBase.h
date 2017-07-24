@@ -44,6 +44,7 @@
 #include "FilePathFinder.h"
 #include "Platform.h"
 #include "CommandLine.h"
+#include "Value.h"
 
 #define DeclareFilmObj(type)
 #define DeclareFilmObjBase(type,parentType)

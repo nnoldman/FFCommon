@@ -10,10 +10,11 @@ union Color {
     operator u32 () {
         return color;
     }
+    static const u32 White = 0XFFFFFFFF;
+    static const u32 Black = 0X00000000;
+    static const u32 Red = 0XFF0000FF;
+    static const u32 Green = 0XFF00FF00;
+    static const u32 Blue = 0X0000FFFF;
 };
-static const u32 Color_Pure_White = 0XFFFFFFFF;
-static const u32 Color_Pure_Black = 0X00000000;
-static const u32 Color_Pure_Red = 0XFF0000FF;
-static const u32 Color_Pure_Green = 0XFF00FF00;
-static const u32 Color_Pure_Blue = 0X0000FFFF;
+
 

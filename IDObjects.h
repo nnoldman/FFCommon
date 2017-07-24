@@ -1,5 +1,6 @@
 #pragma once
 #include "HashMap.h"
+namespace Basic {
 template<typename T>
 class IDObjects {
   public:
@@ -54,5 +55,6 @@ u32 IDObjects<T>::addObj(T* obj) {
     mObjCount++;
     mObjMap.Insert(mObjCount, obj);
     return mObjCount;
+}
 }
 

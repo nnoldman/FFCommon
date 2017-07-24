@@ -7,12 +7,17 @@ typedef char Char;
 typedef const char CChar;
 typedef wchar_t WChar;
 typedef const wchar_t CWChar;
+typedef char s8;
+typedef short s16;
 typedef int s32;
 typedef unsigned int u32;
+typedef unsigned long long u64;
 typedef unsigned short u16;
+typedef unsigned char u8;
 typedef unsigned char uchar;
 typedef unsigned char byte;
 typedef short s16;
+typedef long long s64;
 typedef float f32;
 #pragma endregion CommonType
 
@@ -39,6 +44,7 @@ typedef float f32;
 
 #pragma region Assert
 #include <assert.h>
+#if _DEBUG
 #define CXASSERT(exp)				if(!(exp)){assert(0);}
 #define CXASSERT_RETURN(exp)		if(!(exp)){assert(0);return;}
 #define CXASSERT_RETURN_FALSE(exp)	if(!(exp)){assert(0);return false;}
@@ -47,6 +53,16 @@ typedef float f32;
 
 #define CXASSERT_RESULT(exp)		if(FAILED(exp)){__debugbreak();return;}
 #define CXASSERT_RESULT_FALSE(exp)	if(FAILED((exp))) {__debugbreak();return false;}
+#else
+#define CXASSERT(exp)
+#define CXASSERT_RETURN(exp)		if(!(exp)){assert(0);return;}
+#define CXASSERT_RETURN_FALSE(exp)	if(!(exp)){assert(0);return false;}
+
+#define CXCheck(exp) assert(exp)
+
+#define CXASSERT_RESULT(exp)		if(FAILED(exp)){__debugbreak();return;}
+#define CXASSERT_RESULT_FALSE(exp)	if(FAILED((exp))) {__debugbreak();return false;}
+#endif
 #pragma endregion Assert
 
 #pragma region STL

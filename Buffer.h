@@ -30,13 +30,14 @@ class Buffer {
     template<typename T>
     void addElement ( T* v, size_t cnt );
     void addString(const char* str);
-    //template<typename T>
-    //T& operator[] ( u32 idx )
-    //{
-    //    return * ( ( T* ) &mData[idx * sizeof ( T )] );
-    //}
+    void setString(const char* str);
+
+
     template<typename T>
-    void set ( size_t idx, const T& v );
+    inline void Buffer::set(size_t idx, const T& v) {
+        *((T*)&mData[idx * sizeof(T)]) = v;
+    }
+
     template<typename T>
     inline T& get ( size_t idx ) {
         return* ( ( T* ) &mData[idx * sizeof ( T )] ) ;
@@ -45,8 +46,6 @@ class Buffer {
     inline void zero() {
         dMemoryZero ( mData, length() );
     }
-
-
   protected:
     size_t mElementByteCount;
     size_t mCapacity;
@@ -87,10 +86,7 @@ inline void Buffer::addElement ( T v ) {
     * ( ( T* ) &mData[mCount * sizeof ( T )] ) = v;
     mCount++;
 }
-template<typename T>
-inline void Buffer::set ( size_t idx, const T& v ) {
-    * ( ( T* ) &mData[idx * sizeof ( T )] ) = v;
-}
+
 
 inline size_t Buffer::size() {
     return mCount;
@@ -155,9 +151,16 @@ inline void Buffer::addString( const char* str ) {
     CXASSERT ( mData );
     CXASSERT(mElementByteCount == 1);
     size_t cnt = strlen(str) + 1;
-    dMemoryCopy ( &mData[mCount * mElementByteCount], (void*)str, cnt * mElementByteCount );
+    CXASSERT(cnt <= capacity());
+    dMemoryCopy(&mData[mCount * mElementByteCount], (void*)str, cnt * mElementByteCount);
     mCount += cnt;
 }
+
+inline void Buffer::setString(const char* str) {
+    this->clear();
+    addString(str);
+}
+
 }
 
 #endif // uBuffer_h__
