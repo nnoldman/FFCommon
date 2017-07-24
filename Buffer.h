@@ -33,6 +33,8 @@ class Buffer {
     void setString(const char* str);
 
 
+    Buffer& operator=(const char* str);
+
     template<typename T>
     inline void Buffer::set(size_t idx, const T& v) {
         *((T*)&mData[idx * sizeof(T)]) = v;
@@ -159,6 +161,12 @@ inline void Buffer::addString( const char* str ) {
 inline void Buffer::setString(const char* str) {
     this->clear();
     addString(str);
+}
+
+inline Buffer& Buffer::operator=(const char* str) {
+    this->clear();
+    addString(str);
+    return *this;
 }
 
 }
