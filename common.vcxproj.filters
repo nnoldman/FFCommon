@@ -123,9 +123,6 @@
     <ClInclude Include="Vector3.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="VoidStruct.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="WeakPointer.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -171,9 +168,6 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="base.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="VoidStruct.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

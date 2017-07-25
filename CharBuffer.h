@@ -4,10 +4,20 @@
 
 namespace Basic {
 template<int N>
-class CharBuffer :public Buffer {
+class CharBuffer : public Buffer {
   public:
     CharBuffer()
-        :Buffer(N) {
+        : Buffer(N) {
+    }
+    CharBuffer& operator=(const char* str) {
+        __super::operator =(str);
+        return *this;
+    }
+    bool operator==(const char* str) {
+        return strcmp(getString(), str) == 0;
+    }
+    bool operator!=(const char* str) {
+        return strcmp(getString(), str) != 0;
     }
 };
 }

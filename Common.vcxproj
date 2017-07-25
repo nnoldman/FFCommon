@@ -178,7 +178,6 @@
     <ClInclude Include="uString.h" />
     <ClInclude Include="Value.h" />
     <ClInclude Include="Vector3.h" />
-    <ClInclude Include="VoidStruct.h" />
     <ClInclude Include="WeakPointer.h" />
     <ClInclude Include="XBase.h" />
     <ClInclude Include="XEnum.h" />
@@ -196,7 +195,6 @@
     <ClCompile Include="CommandLine.cpp" />
     <ClCompile Include="FilePathFinder.cpp" />
     <ClCompile Include="Platform.cpp" />
-    <ClCompile Include="VoidStruct.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="LICENSE" />
