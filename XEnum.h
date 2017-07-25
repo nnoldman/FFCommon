@@ -1,5 +1,5 @@
 #pragma once
-#include "uArray.h"
+#include "Array.h"
 struct uEnumStruct {
     const char* mName;
     const int mValue;
@@ -8,7 +8,7 @@ struct uEnumStruct {
     }
 };
 
-typedef uArray<uEnumStruct*> uEnumStructList;
+typedef Array<uEnumStruct*> uEnumStructList;
 template<typename T>
 class uEnumStructHelper {
   protected:

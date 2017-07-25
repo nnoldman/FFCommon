@@ -1,76 +1,177 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClInclude Include="base.h" />
-    <ClInclude Include="XBitArray.h" />
-    <ClInclude Include="XColor.h" />
-    <ClInclude Include="XHashMap.h" />
-    <ClInclude Include="XIDObjectManager.h" />
-    <ClInclude Include="XLexer.h" />
-    <ClInclude Include="XObjectPool.h" />
-    <ClInclude Include="XPoint2.h" />
-    <ClInclude Include="XRect.h" />
-    <ClInclude Include="XStrongPtr.h" />
-    <ClInclude Include="XVector3.h" />
-    <ClInclude Include="XEaser.h" />
-    <ClInclude Include="XStringHelper.h" />
-    <ClInclude Include="XEnum.h" />
-    <ClInclude Include="XIndex.h" />
-    <ClInclude Include="XMultimap.h" />
-    <ClInclude Include="XFileName.hpp" />
-    <ClInclude Include="targetver.h" />
-    <ClInclude Include="XBase.h" />
-    <ClInclude Include="XBiTree.h" />
-    <ClInclude Include="XFileLoader.h" />
-    <ClInclude Include="XList.h" />
-    <ClInclude Include="XMath.h" />
-    <ClInclude Include="XProp.h" />
-    <ClInclude Include="XRandom.h" />
-    <ClInclude Include="XRapidxmlLoader.h" />
-    <ClInclude Include="XRapidxmlWriter.h" />
-    <ClInclude Include="XSingleton.h" />
-    <ClInclude Include="XStack.h" />
-    <ClInclude Include="XTime.h" />
-    <ClInclude Include="XWeakPtr.h" />
-    <ClInclude Include="Rapidxml\rapidxml.hpp">
-      <Filter>rapidxml</Filter>
-    </ClInclude>
-    <ClInclude Include="Rapidxml\rapidxml_help.hpp">
-      <Filter>rapidxml</Filter>
-    </ClInclude>
-    <ClInclude Include="Rapidxml\rapidxml_iterators.hpp">
-      <Filter>rapidxml</Filter>
-    </ClInclude>
-    <ClInclude Include="Rapidxml\rapidxml_print.hpp">
-      <Filter>rapidxml</Filter>
-    </ClInclude>
-    <ClInclude Include="Rapidxml\rapidxml_utils.hpp">
-      <Filter>rapidxml</Filter>
-    </ClInclude>
-    <ClInclude Include="uString.h" />
-    <ClInclude Include="uEncodingHelper.h" />
-    <ClInclude Include="uRefCounter.h" />
-    <ClInclude Include="Tree.h" />
-    <ClInclude Include="uPathFinder.h" />
-    <ClInclude Include="uPlatform.h" />
-    <ClInclude Include="uCommandLine.h" />
-    <ClInclude Include="uMap.h" />
-    <ClInclude Include="uArray.h" />
-    <ClInclude Include="uDelegate.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="luawrapper-master\README.md" />
-    <None Include="ReadMe.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Filter Include="rapidxml">
-      <UniqueIdentifier>{00e20d9d-591e-40b4-94b0-251e72724c25}</UniqueIdentifier>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="uPathFinder.cpp" />
-    <ClCompile Include="base.cpp" />
-    <ClCompile Include="uPlatform.cpp" />
-    <ClCompile Include="uCommandLine.cpp" />
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="RapidxmlWriter.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="BiTree.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Buffer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="CharBuffer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Color.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="CommandLine.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Delegate.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Easer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="EncodingHelper.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="FileLoader.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="FileName.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="FilePathFinder.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="HashMap.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="IDObjects.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Lexer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectPool.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Point2.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Pointer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Random.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="RapidxmlLoader.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="BitArray.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Array.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="base.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Rect.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Reference.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Stack.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="StringHelper.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Tree.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="uString.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Value.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector3.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="WeakPointer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="XBase.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="XEnum.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="XIndex.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="XList.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="XMath.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="XMultiMap.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="XProp.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="XSingleton.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="XStaticArray.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="XTime.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="CommandLine.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="FilePathFinder.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Platform.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="base.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="LICENSE" />
   </ItemGroup>
 </Project>
