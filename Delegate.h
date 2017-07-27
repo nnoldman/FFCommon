@@ -22,7 +22,7 @@ class Delegate : public Array<CallbackObject*> {
     }
 
     Delegate& operator+= (CallbackObject* callback) {
-        CXASSERT(!this->Find(callback));
+        assert(!this->Find(callback));
         this->push_back(callback);
         return *this;
     }

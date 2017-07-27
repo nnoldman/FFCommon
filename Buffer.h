@@ -95,7 +95,7 @@ inline size_t Buffer::size() {
 }
 
 inline void Buffer::setChar ( size_t idx, char c ) {
-    CXASSERT ( mData );
+    assert ( mData );
     mData[idx] = c;
 }
 inline size_t Buffer::capacity() const {
@@ -149,11 +149,11 @@ inline wchar_t* Buffer::getWChar() {
 }
 
 inline void Buffer::addString( const char* str ) {
-    CXASSERT(str);
-    CXASSERT ( mData );
-    CXASSERT(mElementByteCount == 1);
+    assert(str);
+    assert ( mData );
+    assert(mElementByteCount == 1);
     size_t cnt = strlen(str) + 1;
-    CXASSERT(cnt <= capacity());
+    assert(cnt <= capacity());
     dMemoryCopy(&mData[mCount * mElementByteCount], (void*)str, cnt * mElementByteCount);
     mCount += cnt;
 }

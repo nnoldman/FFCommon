@@ -45,6 +45,8 @@ typedef float f32;
 #pragma region Assert
 #include <assert.h>
 #if _DEBUG
+#define assert_false(exp)			assert(!(exp))
+#define assert_equal(a,b)			assert((a)==(b))
 #define CXASSERT(exp)				if(!(exp)){assert(0);}
 #define CXASSERT_RETURN(exp)		if(!(exp)){assert(0);return;}
 #define CXASSERT_RETURN_FALSE(exp)	if(!(exp)){assert(0);return false;}
@@ -54,6 +56,8 @@ typedef float f32;
 #define CXASSERT_RESULT(exp)		if(FAILED(exp)){__debugbreak();return;}
 #define CXASSERT_RESULT_FALSE(exp)	if(FAILED((exp))) {__debugbreak();return false;}
 #else
+#define assert_false(exp)			assert(!(exp))
+#define assert_equal(a,b)			assert((a)==(b))
 #define CXASSERT(exp)
 #define CXASSERT_RETURN(exp)		if(!(exp)){assert(0);return;}
 #define CXASSERT_RETURN_FALSE(exp)	if(!(exp)){assert(0);return false;}

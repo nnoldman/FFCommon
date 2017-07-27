@@ -146,7 +146,7 @@ inline u32 CXPropEnum::getIndex(int var) const {
             return i;
         }
     }
-    CXASSERT(0);
+    assert(0);
     return 0;
 }
 
@@ -157,7 +157,7 @@ inline u32 CXPropEnum::getIndex(const char* name) const {
             return i;
         }
     }
-    CXASSERT(0);
+    assert(0);
     return 0;
 }
 

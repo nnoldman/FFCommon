@@ -8,7 +8,7 @@ class WeakPointer : public std::weak_ptr<T> {
         rhs.
     }
     T* operator->() {
-        CXASSERT(this->expired());
+        assert(this->expired());
         return this->lock();
     }
     operator bool() {
