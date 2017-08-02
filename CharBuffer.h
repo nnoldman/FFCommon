@@ -14,10 +14,10 @@ class CharBuffer : public Buffer {
         return *this;
     }
     bool operator==(const char* str) {
-        return strcmp(getString(), str) == 0;
+        return strcmp(c_str(), str) == 0;
     }
     bool operator!=(const char* str) {
-        return strcmp(getString(), str) != 0;
+        return strcmp(c_str(), str) != 0;
     }
 };
 }
