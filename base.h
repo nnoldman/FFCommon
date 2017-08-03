@@ -112,13 +112,13 @@ typedef std::string CXString;
 #pragma endregion Constant
 
 #pragma region Pragma
-#ifdef _LIB
-#define CX_LIB	__declspec(dllexport)
+#ifdef _DLL_CPPLIB
+#define COREAPI	__declspec(dllexport)
 #else
-#define CX_LIB  __declspec(dllimport)
+#define COREAPI  __declspec(dllimport)
 #endif
 
-#ifdef _LIB
+#ifdef _DLL_CPPLIB
 #define API	extern "C" __declspec(dllexport)
 #else
 #define API  extern "C" __declspec(dllimport)
