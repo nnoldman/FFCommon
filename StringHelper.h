@@ -32,7 +32,7 @@ void setValue(const char* val, double* var);
 
 template<int N>
 inline void toString(std::string& dst, CharBuffer<N>* var) {
-    CXASSERT(var);
+    assert(var);
     dst = var->getString();
 }
 
@@ -47,12 +47,12 @@ inline void setValue(const char* val, CharBuffer<N>* var) {
 #pragma warning(disable:4996)
 
 inline void StringHelper::toString(std::string& dst, uString* var) {
-    CXASSERT(var);
+    assert(var);
     dst = var->c_str();
 }
 
 inline void StringHelper::toString(std::string& dst, string* var) {
-    CXASSERT(var);
+    assert(var);
     dst = var->c_str();
 }
 
@@ -63,11 +63,11 @@ inline void StringHelper::toString(std::string& dst, bool* var) {
 
 
 inline void StringHelper::setValue(const char* val, uString* var) {
-    CXASSERT(val);
+    assert(val);
     *var = val;
 }
 inline void StringHelper::setValue(const char* val, string* var) {
-    CXASSERT(val);
+    assert(val);
     *var = val;
 }
 
@@ -84,7 +84,7 @@ inline void StringHelper::setValue(const char* val, bool* var) {
 }
 
 inline void StringHelper::setValue(const char* val, unsigned int* var) {
-    CXASSERT(val);
+    assert(val);
     sscanf_s(val, "%u", var);
 }
 

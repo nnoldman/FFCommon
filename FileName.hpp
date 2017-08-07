@@ -2,6 +2,7 @@
 #define XFileName_h__
 #include "uString.h"
 #include "Array.h"
+#include "base.h"
 namespace Basic {
 
 class FileName {
@@ -89,8 +90,8 @@ inline bool FileName::MakeRelativeFileName ( const char* fileName, uString& path
     }
     size_t size0 = eles0.size();
     size_t size1 = eles1.size();
-    CXASSERT ( size0 >= 2 );
-    CXASSERT ( size1 >= 2 );
+    assert ( size0 >= 2 );
+    assert ( size1 >= 2 );
     //-------------------------------------------------------------------------
     // directroy not equal
     size_t left0 = size0 - idx ;
@@ -227,7 +228,7 @@ inline FileName::FileName ( const char* fileName )
     : mOrignalName ( fileName ) {
     ConvertToStandSpliter ( mOrignalName );
     if ( IsRelative ( mOrignalName ) ) {
-        CXASSERT ( MakeFullFileName ( mOrignalName, mFullFileName ) );
+        assert ( MakeFullFileName ( mOrignalName, mFullFileName ) );
     } else {
         mFullFileName = mOrignalName;
     }
@@ -304,8 +305,8 @@ inline void FileName::deleteRedundentSpliter ( uString& path ) {
 }
 
 inline bool FileName::MakeFullFileName ( const char* fileName, uString& fullFileName ) {
-    CXASSERT ( IsRelative ( fileName ) );
-    CXASSERT ( fileName );
+    assert ( IsRelative ( fileName ) );
+    assert ( fileName );
     char buffer[_MAX_FNAME];
     _fullpath ( buffer, fileName, _MAX_FNAME );
     fullFileName = buffer;

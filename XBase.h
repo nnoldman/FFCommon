@@ -70,8 +70,8 @@ T* dFindNextElementInArray(Array&  arr, T* cur, CondtionObj& funObj) {
 **/
 template<typename T, typename CondtionObj>
 T* dFindNextElementInTree(T*  parent, T* cur, CondtionObj& funObj) {
-    CXASSERT(parent);
-    CXASSERT(cur);
+    assert(parent);
+    assert(cur);
     bool existCur = parent == cur;
     auto& children = parent->getChildren();
     for (auto & e : children) {

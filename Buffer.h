@@ -21,7 +21,7 @@ class Buffer {
     inline size_t capacity() const;
     inline char* getPointer() const;
     inline wchar_t* getWChar();
-    inline const char* getString() const;
+    inline const char* c_str() const;
     inline void copyTo ( void* dst );
     inline void copyFrom ( void* src );
     inline void setChar ( size_t idx, char c );
@@ -32,6 +32,9 @@ class Buffer {
     void addString(const char* str);
     void setString(const char* str);
 
+    size_t readInt(int& var);
+    size_t getPosition();
+    size_t forwardPosition(int tranlate);
 
     Buffer& operator=(const char* str);
 
@@ -49,6 +52,7 @@ class Buffer {
         dMemoryZero ( mData, length() );
     }
   protected:
+    size_t mPosition;
     size_t mElementByteCount;
     size_t mCapacity;
     size_t mCount;
@@ -63,7 +67,7 @@ inline size_t Buffer::length() {
 inline char* Buffer::getPointer() const {
     return mData;
 }
-inline const char* Buffer::getString() const {
+inline const char* Buffer::c_str() const {
     return ( const char* ) mData;
 }
 inline void Buffer::setElementByteCount ( size_t size ) {
@@ -95,7 +99,7 @@ inline size_t Buffer::size() {
 }
 
 inline void Buffer::setChar ( size_t idx, char c ) {
-    CXASSERT ( mData );
+    assert ( mData );
     mData[idx] = c;
 }
 inline size_t Buffer::capacity() const {
@@ -149,11 +153,11 @@ inline wchar_t* Buffer::getWChar() {
 }
 
 inline void Buffer::addString( const char* str ) {
-    CXASSERT(str);
-    CXASSERT ( mData );
-    CXASSERT(mElementByteCount == 1);
+    assert(str);
+    assert ( mData );
+    assert(mElementByteCount == 1);
     size_t cnt = strlen(str) + 1;
-    CXASSERT(cnt <= capacity());
+    assert(cnt <= capacity());
     dMemoryCopy(&mData[mCount * mElementByteCount], (void*)str, cnt * mElementByteCount);
     mCount += cnt;
 }
@@ -161,6 +165,21 @@ inline void Buffer::addString( const char* str ) {
 inline void Buffer::setString(const char* str) {
     this->clear();
     addString(str);
+}
+
+inline size_t Buffer::readInt(int& var) {
+    var = (*(int*)(mData + mPosition));
+    mPosition += 4;
+    return mPosition;
+}
+
+inline size_t Buffer::getPosition() {
+    return mPosition;
+}
+
+inline size_t Buffer::forwardPosition(int tranlate) {
+    mPosition += tranlate;
+    return mPosition;
 }
 
 inline Buffer& Buffer::operator=(const char* str) {

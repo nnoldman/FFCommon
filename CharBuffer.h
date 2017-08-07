@@ -13,11 +13,11 @@ class CharBuffer : public Buffer {
         __super::operator =(str);
         return *this;
     }
-    bool operator==(const char* str) {
-        return strcmp(getString(), str) == 0;
+    inline bool operator==(const char* str) {
+        return strcmp(c_str(), str) == 0;
     }
-    bool operator!=(const char* str) {
-        return strcmp(getString(), str) != 0;
+    inline bool operator!=(const char* str) {
+        return strcmp(c_str(), str) != 0;
     }
 };
 }

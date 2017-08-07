@@ -39,6 +39,7 @@ class Value {
 
     Value(float var);
     Value(double var);
+    Value(const char* var);
 
     Value& operator=(u8 var);
     Value& operator=(u16 var);
@@ -52,6 +53,7 @@ class Value {
     Value& operator=(string var);
     Value& operator=(float var);
     Value& operator=(double var);
+    Value& operator=(const char* var);
 
 
     operator u8 () {
@@ -81,8 +83,8 @@ class Value {
     operator char() {
         return this->char_;
     }
-    operator string() {
-        return this->string_;
+    operator const char*() {
+        return this->string_ ? this->string_->c_str() : nullptr;
     }
     operator float() {
         return this->float_;
@@ -106,7 +108,7 @@ class Value {
         s64 s64_;
 
         bool bool_;
-        string string_;
+        string* string_;
         float float_;
         double double_;
     };
@@ -139,8 +141,9 @@ inline Value::Value(u32 var) {
 }
 
 inline Value::Value(string var) {
-    this->string_ = var;
-    type_ = ValueType::String;
+    this->string_ = new string();
+    *this->string_ = var;
+    this->type_ = ValueType::String;
 }
 
 inline Value::Value(bool var) {
@@ -181,14 +184,42 @@ inline Value::Value(u8 var) {
 
 inline Value::Value(const Value& var) {
     this->type_ = var.type_;
-    dMemoryCopy(this, (void*)&var, sizeof(Value));
+    this->u8_ = var.u8_;
+    this->u16_ = var.u16_;
+    this->u32_ = var.u32_;
+    this->u64_ = var.u64_;
+    this->char_ = var.char_;
+    this->s32_ = var.s32_;
+    this->s64_ = var.s64_;
+    this->bool_ = var.bool_;
+    this->float_ = var.float_;
+    this->double_ = var.double_;
+
+    if (this->type_ == ValueType::String) {
+        this->string_ = new string();
+        if (var.string_)
+            *this->string_ = *var.string_;
+    }
+}
+
+inline Value::Value(const char* var) {
+    this->string_ = new string();
+    *this->string_ = var;
+    this->type_ = ValueType::String;
+}
+
+inline Value& Value::operator=(const char* var) {
+    this->string_ = new string();
+    *this->string_ = var;
+    this->type_ = ValueType::String;
+    return *this;
 }
 
 inline std::string Value::toString() {
     char buffer[_CVTBUFSIZE] = { 0 };
     switch (type_) {
     case U8: {
-        _itoa_s(u8_, buffer,10);
+        _itoa_s(u8_, buffer, 10);
     }
     break;
     case U16: {
@@ -229,7 +260,7 @@ inline std::string Value::toString() {
     case Float: {
         int decimal;
         int sign;
-        _fcvt_s(buffer, float_, _CVTBUFSIZE, 5,&decimal,&sign);
+        _fcvt_s(buffer, float_, _CVTBUFSIZE, 5, &decimal, &sign);
     }
     break;
     case Double: {
@@ -237,7 +268,8 @@ inline std::string Value::toString() {
     }
     break;
     case String: {
-        strcpy_s(buffer, string_.c_str());
+        if(this->string_)
+            strcpy_s(buffer, string_->c_str());
     }
     break;
     default:
@@ -247,6 +279,9 @@ inline std::string Value::toString() {
 }
 
 inline Basic::Value::~Value() {
+    if (this->type_ == ValueType::String && this->string_) {
+        dSafeDelete(this->string_);
+    }
 }
 
 inline Basic::Value& Basic::Value::operator=(double var) {
@@ -262,8 +297,11 @@ inline Basic::Value& Basic::Value::operator=(float var) {
 }
 
 inline Basic::Value& Basic::Value::operator=(string var) {
-    this->string_ = var;
-    type_ = ValueType::String;
+    if (this->string_ == nullptr) {
+        this->string_ = new string();
+    }
+    *this->string_ = var;
+    this->type_ = ValueType::String;
     return *this;
 }
 

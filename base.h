@@ -45,6 +45,8 @@ typedef float f32;
 #pragma region Assert
 #include <assert.h>
 #if _DEBUG
+#define assert_false(exp)			assert(!(exp))
+#define assert_equal(a,b)			assert((a)==(b))
 #define CXASSERT(exp)				if(!(exp)){assert(0);}
 #define CXASSERT_RETURN(exp)		if(!(exp)){assert(0);return;}
 #define CXASSERT_RETURN_FALSE(exp)	if(!(exp)){assert(0);return false;}
@@ -54,6 +56,8 @@ typedef float f32;
 #define CXASSERT_RESULT(exp)		if(FAILED(exp)){__debugbreak();return;}
 #define CXASSERT_RESULT_FALSE(exp)	if(FAILED((exp))) {__debugbreak();return false;}
 #else
+#define assert_false(exp)			assert(!(exp))
+#define assert_equal(a,b)			assert((a)==(b))
 #define CXASSERT(exp)
 #define CXASSERT_RETURN(exp)		if(!(exp)){assert(0);return;}
 #define CXASSERT_RETURN_FALSE(exp)	if(!(exp)){assert(0);return false;}
@@ -108,13 +112,13 @@ typedef std::string CXString;
 #pragma endregion Constant
 
 #pragma region Pragma
-#ifdef _LIB
-#define CX_LIB	__declspec(dllexport)
+#ifdef _DLL_CPPLIB
+#define COREAPI	__declspec(dllexport)
 #else
-#define CX_LIB  __declspec(dllimport)
+#define COREAPI  __declspec(dllimport)
 #endif
 
-#ifdef _LIB
+#ifdef _DLL_CPPLIB
 #define API	extern "C" __declspec(dllexport)
 #else
 #define API  extern "C" __declspec(dllimport)
