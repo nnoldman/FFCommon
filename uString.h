@@ -160,7 +160,7 @@ class uString {
             stringbuffer.buffer().copyTo(mRef.pointer());
         } else {
             mLengthOfByte = len;
-            dMemoryCopy(stringbuffer.buffer().getPointer(), (void*)str, mLengthOfByte);
+            dMemoryCopy(stringbuffer.buffer().getBuffer(), (void*)str, mLengthOfByte);
             mRef.reallocate(mLengthOfByte);
             dMemoryCopy(mRef.pointer(), (void*)str, mLengthOfByte);
         }
@@ -175,9 +175,9 @@ class uString {
             stringbuffer.buffer().copyTo(mRef.pointer());
         } else {
             mLengthOfByte = len * 2;
-            dMemoryCopy(stringbuffer.buffer().getPointer(), (void*)str, mLengthOfByte);
+            dMemoryCopy(stringbuffer.buffer().getBuffer(), (void*)str, mLengthOfByte);
             mRef.reallocate(mLengthOfByte);
-            dMemoryCopy(mRef.pointer(), stringbuffer.buffer().getPointer(), mLengthOfByte);
+            dMemoryCopy(mRef.pointer(), stringbuffer.buffer().getBuffer(), mLengthOfByte);
         }
     }
   private:
@@ -431,11 +431,11 @@ inline void uString::format(const char* fmt, ...) {
     va_start(ap, fmt);
     uStringBuffer stringbuffer;
     Buffer& buffer = stringbuffer.buffer();
-    vsnprintf_s(buffer.getPointer(), buffer.length(), _TRUNCATE, fmt, ap);
+    vsnprintf_s(buffer.getBuffer(), buffer.length(), _TRUNCATE, fmt, ap);
     va_end(ap);
-    size_t len = strlen(buffer.getPointer());
+    size_t len = strlen(buffer.getBuffer());
     buffer.setSize(len);
-    constructByType(buffer.getPointer(), len, Encoding_Default, mEncoding);
+    constructByType(buffer.getBuffer(), len, Encoding_Default, mEncoding);
 }
 inline size_t uString::find(const char* str) const {
     uString src = unicode().c_strw();
@@ -557,9 +557,9 @@ inline uString&  uString::append(size_t cnt, char c) {
     Buffer& buffer = stringbuffer.buffer();
     buffer.setSize(cnt + 1);
     assert(cnt < buffer.capacity());
-    memset(buffer.getPointer(), c, cnt);
+    memset(buffer.getBuffer(), c, cnt);
     buffer.set(cnt, '\0');
-    append(buffer.getPointer());
+    append(buffer.getBuffer());
     return *this;
 }
 
@@ -594,7 +594,7 @@ inline uString&  uString::append(size_t cnt, wchar_t c) {
     Buffer& buffer = stringbuffer.buffer();
     buffer.setSize((u32)(cnt * 2));
     assert(cnt < buffer.capacity());
-    memset(buffer.getPointer(), c, cnt * sizeof(wchar_t));
+    memset(buffer.getBuffer(), c, cnt * sizeof(wchar_t));
     buffer.set((u32)cnt, L'\0');
     append(buffer.getWChar());
     return *this;

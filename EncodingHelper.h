@@ -80,7 +80,7 @@ class EncodingHelper {
         size_t sz = 0;
         buffer.zero();
         //errno_t error = mbstowcs_s ( &sz, ( wchar_t* ) buffer.getPointer(), len, data, len + 1 );
-        errno_t error = mbstowcs_s ( &sz, ( wchar_t* ) buffer.getPointer(), buffer.capacity() / sizeof ( wchar_t ), data, len );
+        errno_t error = mbstowcs_s ( &sz, ( wchar_t* ) buffer.getBuffer(), buffer.capacity() / sizeof ( wchar_t ), data, len );
         /** @brief tail is '\0' **/
         assert ( sz > 0 );
         len = ( sz - 1 ) * sizeof ( wchar_t );
@@ -221,7 +221,7 @@ class EncodingHelper {
     static  bool convertUtf8ToUnicode ( Buffer& buffer, const  Char* data, size_t len ) {
         size_t sz = 0;
         buffer.zero();
-        bool res = utf8ToUnicode ( ( wchar_t* ) buffer.getPointer(), (  char* ) data, sz );
+        bool res = utf8ToUnicode ( ( wchar_t* ) buffer.getBuffer(), (  char* ) data, sz );
         assert ( res );
         buffer.setSize ( sz * sizeof ( wchar_t ) );
         return res;
@@ -234,13 +234,13 @@ class EncodingHelper {
             assert ( 0 );
             return false;
         }
-        res = convertUnicodeToUtf8 ( buffer, stringbuffer.buffer().getPointer(), stringbuffer.buffer().size() );
+        res = convertUnicodeToUtf8 ( buffer, stringbuffer.buffer().getBuffer(), stringbuffer.buffer().size() );
 
         return res;
     }
     static  bool convertUnicodeToUtf8 ( Buffer& buffer, const  Char* data, size_t len ) {
         size_t sz = 0;
-        bool res = unicodeToUtf8 ( buffer.getPointer(), (  wchar_t* ) data, sz );
+        bool res = unicodeToUtf8 ( buffer.getBuffer(), (  wchar_t* ) data, sz );
         assert ( res );
         buffer.setSize ( sz * sizeof ( char ) );
         return true;
@@ -249,7 +249,7 @@ class EncodingHelper {
     static  bool convertUnicodeToAnsi ( Buffer& buffer, const  Char* data, size_t len ) {
         size_t sz = 0;
         buffer.zero();
-        errno_t error = wcstombs_s ( &sz, ( Char * ) buffer.getPointer(), buffer.length(), ( const wchar_t* ) data,  buffer.length() );
+        errno_t error = wcstombs_s ( &sz, ( Char * ) buffer.getBuffer(), buffer.length(), ( const wchar_t* ) data,  buffer.length() );
         /** @brief tail is '\0' **/
         buffer.setSize ( sz - 1  );
         return error == 0;
@@ -261,7 +261,7 @@ class EncodingHelper {
             assert ( 0 );
             return false;
         }
-        res = convertUnicodeToAnsi ( buffer, stringbuffer.buffer().getPointer(), stringbuffer.buffer().size() );
+        res = convertUnicodeToAnsi ( buffer, stringbuffer.buffer().getBuffer(), stringbuffer.buffer().size() );
 
         return res;
     }
