@@ -19,7 +19,8 @@ class Buffer {
     inline size_t size();
     inline void setSize ( size_t size );
     inline size_t capacity() const;
-    inline char* getPointer() const;
+    inline char* getBuffer() const;
+    inline char* currentPointer() const;
     inline wchar_t* getWChar();
     inline const char* c_str() const;
     inline void copyTo ( void* dst );
@@ -33,6 +34,8 @@ class Buffer {
     void setString(const char* str);
 
     size_t readInt(int& var);
+    size_t write(int& var);
+    size_t write(u32& var);
     size_t getPosition();
     size_t forwardPosition(int tranlate);
 
@@ -64,9 +67,14 @@ class Buffer {
 inline size_t Buffer::length() {
     return mCapacity * mElementByteCount;
 }
-inline char* Buffer::getPointer() const {
+inline char* Buffer::getBuffer() const {
     return mData;
 }
+
+inline char* Buffer::currentPointer() const {
+    return (char*)(mData + mPosition);
+}
+
 inline const char* Buffer::c_str() const {
     return ( const char* ) mData;
 }
@@ -170,6 +178,18 @@ inline void Buffer::setString(const char* str) {
 inline size_t Buffer::readInt(int& var) {
     var = (*(int*)(mData + mPosition));
     mPosition += 4;
+    return mPosition;
+}
+
+inline size_t Buffer::write(int& var) {
+    (*(int*)(mData + mPosition)) = var;
+    mPosition += sizeof(int);
+    return mPosition;
+}
+
+inline size_t Buffer::write(u32& var) {
+    (*(u32*)(mData + mPosition)) = var;
+    mPosition += sizeof(u32);
     return mPosition;
 }
 
