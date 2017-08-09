@@ -12,26 +12,26 @@ class Buffer
 public:
     Buffer();
     ~Buffer();
-    Buffer ( size_t byteCnt );
-    void reAllocate ( size_t byteSize );
-    void reallocateByElementCount ( size_t cnt );
+    Buffer(size_t byteCnt);
+    void reAllocate(size_t byteSize);
+    void reallocateByElementCount(size_t cnt);
     void clear();
-    inline void setElementByteCount ( size_t size );
+    inline void setElementByteCount(size_t size);
     inline size_t length();
     inline size_t size();
-    inline void setSize ( size_t size );
+    inline void setSize(size_t size);
     inline size_t capacity() const;
     inline char* getBuffer() const;
     inline char* currentPointer() const;
     inline wchar_t* getWChar();
     inline const char* c_str() const;
-    inline void copyTo ( void* dst );
-    inline void copyFrom ( void* src );
-    inline void setChar ( size_t idx, char c );
+    inline void copyTo(void* dst);
+    inline void copyFrom(void* src);
+    inline void setChar(size_t idx, char c);
     template<typename T>
-    void addElement ( T v );
+    void addElement(T v);
     template<typename T>
-    void addElement ( T* v, size_t cnt );
+    void addElement(T* v, size_t cnt);
     void addString(const char* str);
     void setString(const char* str);
 
@@ -50,14 +50,14 @@ public:
     }
 
     template<typename T>
-    inline T& get ( size_t idx )
+    inline T& get(size_t idx)
     {
-        return* ( ( T* ) &mData[idx * sizeof ( T )] ) ;
+        return* ((T*) &mData[idx * sizeof(T)]) ;
     }
 
     inline void zero()
     {
-        dMemoryZero ( mData, length() );
+        dMemoryZero(mData, length());
     }
 protected:
     size_t mPosition;
@@ -86,33 +86,33 @@ inline char* Buffer::currentPointer() const
 
 inline const char* Buffer::c_str() const
 {
-    return ( const char* ) mData;
+    return (const char*) mData;
 }
-inline void Buffer::setElementByteCount ( size_t size )
+inline void Buffer::setElementByteCount(size_t size)
 {
     mElementByteCount = size;
 }
 
-inline void Buffer::copyTo ( void* dst )
+inline void Buffer::copyTo(void* dst)
 {
-    dMemoryCopy ( dst, mData, mCount * mElementByteCount );
+    dMemoryCopy(dst, mData, mCount * mElementByteCount);
 }
 
-inline void Buffer::copyFrom ( void* src )
+inline void Buffer::copyFrom(void* src)
 {
-    dMemoryCopy ( mData, src, mCapacity * mElementByteCount );
+    dMemoryCopy(mData, src, mCapacity * mElementByteCount);
 }
 template<typename T>
-inline void Buffer::addElement ( T* v, size_t cnt )
+inline void Buffer::addElement(T* v, size_t cnt)
 {
-    dMemoryCopy ( &mData[mCount * mElementByteCount], v, cnt * mElementByteCount );
+    dMemoryCopy(&mData[mCount * mElementByteCount], v, cnt * mElementByteCount);
     mCount += cnt;
 }
 
 template<typename T>
-inline void Buffer::addElement ( T v )
+inline void Buffer::addElement(T v)
 {
-    * ( ( T* ) &mData[mCount * sizeof ( T )] ) = v;
+    * ((T*) &mData[mCount * sizeof(T)]) = v;
     mCount++;
 }
 
@@ -122,9 +122,9 @@ inline size_t Buffer::size()
     return mCount;
 }
 
-inline void Buffer::setChar ( size_t idx, char c )
+inline void Buffer::setChar(size_t idx, char c)
 {
-    assert ( mData );
+    assert(mData);
     mData[idx] = c;
 }
 inline size_t Buffer::capacity() const
@@ -135,49 +135,49 @@ inline size_t Buffer::capacity() const
 inline void Buffer::clear()
 {
     mCount = 0;
-    dMemoryZero ( mData, length() );
+    dMemoryZero(mData, length());
     mPosition = 0;
 }
-inline Buffer::Buffer ( void )
+inline Buffer::Buffer(void)
 {
     mData = 0;
     mCount = 0;
     mCapacity = 0;
     mElementByteCount = 1;
 }
-inline Buffer::Buffer ( size_t byteCnt )
+inline Buffer::Buffer(size_t byteCnt)
 {
     mData = 0;
     mCount = 0;
     mCapacity = byteCnt;
     mElementByteCount = 1;
-    reAllocate ( mCapacity );
+    reAllocate(mCapacity);
 }
 
 
-inline Buffer::~Buffer ( void )
+inline Buffer::~Buffer(void)
 {
-    dSafeDelete ( mData );
+    delete []mData;
 }
 
-inline void Buffer::reAllocate ( size_t byteSize )
+inline void Buffer::reAllocate(size_t byteSize)
 {
-    dSafeDelete ( mData );
+    dSafeDelete(mData);
     mData = new char[byteSize];
-    if ( mElementByteCount > 0 )
+    if (mElementByteCount > 0)
         mCapacity = byteSize / mElementByteCount;
-    dMemoryZero ( mData, byteSize );
+    dMemoryZero(mData, byteSize);
 }
 
-inline void Buffer::reallocateByElementCount ( size_t cnt )
+inline void Buffer::reallocateByElementCount(size_t cnt)
 {
-    dSafeDelete ( mData );
+    dSafeDelete(mData);
     mCapacity = cnt;
     mData = new char[mCapacity * mElementByteCount];
-    dMemoryZero ( mData, mCapacity * mElementByteCount );
+    dMemoryZero(mData, mCapacity * mElementByteCount);
 }
 
-inline void Buffer::setSize ( size_t size )
+inline void Buffer::setSize(size_t size)
 {
     mCount = size;
 }
@@ -187,10 +187,10 @@ inline wchar_t* Buffer::getWChar()
     return mWData;
 }
 
-inline void Buffer::addString( const char* str )
+inline void Buffer::addString(const char* str)
 {
     assert(str);
-    assert ( mData );
+    assert(mData);
     assert(mElementByteCount == 1);
     size_t cnt = strlen(str) + 1;
     assert(cnt <= capacity());
