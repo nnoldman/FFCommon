@@ -60,6 +60,15 @@ public:
         dMemoryZero(mData, length());
     }
 protected:
+    inline void free()
+    {
+        if (mData != nullptr)
+        {
+            delete[] mData;
+            mData = nullptr;
+        }
+    }
+protected:
     size_t mPosition;
     size_t mElementByteCount;
     size_t mCapacity;
@@ -157,12 +166,12 @@ inline Buffer::Buffer(size_t byteCnt)
 
 inline Buffer::~Buffer(void)
 {
-    delete []mData;
+    this->free();
 }
 
 inline void Buffer::reAllocate(size_t byteSize)
 {
-    dSafeDelete(mData);
+    this->free();
     mData = new char[byteSize];
     if (mElementByteCount > 0)
         mCapacity = byteSize / mElementByteCount;
@@ -171,7 +180,7 @@ inline void Buffer::reAllocate(size_t byteSize)
 
 inline void Buffer::reallocateByElementCount(size_t cnt)
 {
-    dSafeDelete(mData);
+    this->free();
     mCapacity = cnt;
     mData = new char[mCapacity * mElementByteCount];
     dMemoryZero(mData, mCapacity * mElementByteCount);

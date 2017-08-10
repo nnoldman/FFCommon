@@ -1,20 +1,23 @@
 #pragma once
 #include "Array.h"
-struct uEnumStruct {
+struct uEnumStruct
+{
     const char* mName;
     const int mValue;
     uEnumStruct(int var, const char* name)
-        : mName(name), mValue(var) {
+        : mName(name), mValue(var)
+    {
     }
 };
 
 typedef Array<uEnumStruct*> uEnumStructList;
 template<typename T>
-class uEnumStructHelper {
-  protected:
+class uEnumStructHelper
+{
+protected:
     static uEnumStructList* mStructList;
     static void regist();
-  public:
+public:
     static uEnumStructList& getStructList();
 
     ~uEnumStructHelper();
@@ -22,24 +25,28 @@ class uEnumStructHelper {
 };
 
 template<typename T>
-uEnumStructHelper<T>::uEnumStructHelper() {
+uEnumStructHelper<T>::uEnumStructHelper()
+{
     if (getStructList().empty())
         regist();
 }
 
 template<typename T>
-uEnumStructHelper<T>::~uEnumStructHelper() {
+uEnumStructHelper<T>::~uEnumStructHelper()
+{
     dSafeDeleteVector(*mStructList);
     dSafeDelete(mStructList);
 }
 
 template<typename T>
-uEnumStructList& uEnumStructHelper<T>::getStructList() {
-    if (mStructList == nullptr) {
+uEnumStructList& uEnumStructHelper<T>::getStructList()
+{
+    if (mStructList == nullptr)
+    {
         mStructList = new uEnumStructList;
     }
     return *mStructList;
 }
 template<typename T>
-CXDefineOnce uEnumStructList* uEnumStructHelper<T>::mStructList = nullptr;
+DefineOnce uEnumStructList* uEnumStructHelper<T>::mStructList = nullptr;
 

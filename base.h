@@ -1,7 +1,6 @@
 #ifndef base_h__
 #define base_h__
 
-
 #pragma region CommonType
 typedef char Char;
 typedef const char CChar;
@@ -124,7 +123,7 @@ typedef std::string CXString;
 #define API  extern "C" __declspec(dllimport)
 #endif
 
-#define CXDefineOnce __declspec(selectany)
+#define DefineOnce __declspec(selectany)
 #pragma endregion Pragma
 
 #pragma region Allocate
@@ -272,6 +271,7 @@ void dCast(T1* dst, T2 src)
 {
     *((T2*)dst) = src;
 }
+
 
 
 
