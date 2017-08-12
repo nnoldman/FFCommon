@@ -1,7 +1,6 @@
 #ifndef base_h__
 #define base_h__
 
-
 #pragma region CommonType
 typedef char Char;
 typedef const char CChar;
@@ -124,7 +123,7 @@ typedef std::string CXString;
 #define API  extern "C" __declspec(dllimport)
 #endif
 
-#define CXDefineOnce __declspec(selectany)
+#define DefineOnce __declspec(selectany)
 #pragma endregion Pragma
 
 #pragma region Allocate
@@ -155,7 +154,8 @@ typedef std::string CXString;
 #pragma endregion Math
 
 
-inline void dDebugOutWithFile(const char* file, int line, const char* fmt, ...) {
+inline void dDebugOutWithFile(const char* file, int line, const char* fmt, ...)
+{
     //va_list arglist;
     //va_start ( arglist, fmt );
     //int nLen = XGetLength ( fmt, arglist ) /* + 1*/;
@@ -180,80 +180,98 @@ inline void dDebugOutWithFile(const char* file, int line, const char* fmt, ...) 
 #define dDebugOut(fmt,...) dDebugOutWithFile(__FILE__,__LINE__,fmt,__VA_ARGS__)
 
 template<typename T>
-void dConstruct(void* ptr) {
+void dConstruct(void* ptr)
+{
     ::new (ptr) T;
 }
 template<typename T, typename E>
-void dRemoveChild(T& v, E* e) {
+void dRemoveChild(T& v, E* e)
+{
     typename T::iterator i = std::find(v.begin(), v.end(), e);
     if (i != v.end())
         v.erase(i);
 }
 template<typename T>
-void dSafeDeleteVector(T& v) {
-    if (v.size() > 0) {
+void dSafeDeleteVector(T& v)
+{
+    if (v.size() > 0)
+    {
         typename T::iterator it = v.begin();
         typename T::iterator end = v.end();
-        for (; it != end; ++it) {
+        for (; it != end; ++it)
+        {
             dSafeDelete(*it);
         }
         v.clear();
     }
 }
 template<typename T, u32 N>
-void dSafeDeleteArray(T * (&arr)[N]) {
-    for (auto & i : arr)
+void dSafeDeleteArray(T * (&arr)[N])
+{
+    for (auto& i : arr)
         dSafeDelete(i);
 }
 template<typename T>
-void dSafeDeleteMap2(T& v) {
+void dSafeDeleteMap2(T& v)
+{
     typename T::iterator it = v.begin();
     typename T::iterator end = v.end();
-    for (; it != end; ++it) {
+    for (; it != end; ++it)
+    {
         dSafeDelete(it->second);
     }
     v.clear();
 }
-inline void dMemoryZero(void* p, size_t len) {
+inline void dMemoryZero(void* p, size_t len)
+{
     CXASSERT(p);
     memset(p, 0, len);
 }
 #define dMemoryZeroStruct(p) memset(p,0,sizeof(*p))
 #define dToggle(b) (b=!b)
 
-inline void dMemoryCopy(void* dst, void* src, size_t len) {
+inline void dMemoryCopy(void* dst, void* src, size_t len)
+{
     CXASSERT(dst && src);
     memcpy(dst, src, len);
 }
 template<typename T, u32 N>
-void dMemoryZeroArray(T(&arr)[N]) {
+void dMemoryZeroArray(T(&arr)[N])
+{
     dMemoryZero(&arr, sizeof(T) *N);
 }
-inline bool dStrEqual(const char* s1, const char* s2) {
+inline bool dStrEqual(const char* s1, const char* s2)
+{
     return 0 == strcmp(s1, s2);
 }
-inline size_t dStrLen(const wchar_t* s) {
+inline size_t dStrLen(const wchar_t* s)
+{
     CXASSERT(s != 0);
     return wcslen(s);
 }
-inline size_t dStrLen(const char* s) {
+inline size_t dStrLen(const char* s)
+{
     CXASSERT(s != 0);
     return strlen(s);
 }
 
 template<typename T, s32 N>
-const s32 dArrayCount(T(&arr)[N]) {
+const s32 dArrayCount(T(&arr)[N])
+{
     return N;
 }
 
 template<typename T1, typename T2>
-void dCast(T1& dst, T2* src) {
+void dCast(T1& dst, T2* src)
+{
     dst = *((T1*)src);
 }
 template<typename T1, typename T2>
-void dCast(T1* dst, T2 src) {
+void dCast(T1* dst, T2 src)
+{
     *((T2*)dst) = src;
 }
+
 
 
 
