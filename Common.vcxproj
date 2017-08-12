@@ -161,6 +161,7 @@
     <ClInclude Include="IDObjects.h" />
     <ClInclude Include="Lexer.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="md5.h" />
     <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="Platform.h" />
     <ClInclude Include="Point2.h" />
@@ -194,6 +195,9 @@
     <ClCompile Include="base.cpp" />
     <ClCompile Include="CommandLine.cpp" />
     <ClCompile Include="FilePathFinder.cpp" />
+    <ClCompile Include="md5.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="Platform.cpp" />
   </ItemGroup>
   <ItemGroup>
