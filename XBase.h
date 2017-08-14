@@ -37,6 +37,7 @@
 #include "IDObjects.h"
 #include "Rect.h"
 #include "Point2.h"
+#include "Pointer.h"
 #include "Lexer.h"
 
 #include "Tree.h"
@@ -45,6 +46,7 @@
 #include "Platform.h"
 #include "CommandLine.h"
 #include "Value.h"
+#include "Time_.h"
 
 #define DeclareFilmObj(type)
 #define DeclareFilmObjBase(type,parentType)
@@ -53,13 +55,17 @@
 
 /** @brief 查找一个数组或vector中cur之后的第一个符合条件的元素 **/
 template<typename Array, typename T, typename CondtionObj>
-T* dFindNextElementInArray(Array&  arr, T* cur, CondtionObj& funObj) {
+T* dFindNextElementInArray(Array&  arr, T* cur, CondtionObj& funObj)
+{
     bool existCur = false;
-    for (auto & e : arr) {
-        if (existCur && funObj(e)) {
+    for (auto& e : arr)
+    {
+        if (existCur && funObj(e))
+        {
             return e;
         }
-        if (e == cur) {
+        if (e == cur)
+        {
             existCur = true;
         }
     }
@@ -69,16 +75,20 @@ T* dFindNextElementInArray(Array&  arr, T* cur, CondtionObj& funObj) {
 查找一棵树中(中序遍历)cur之后的第一个符合条件的元素
 **/
 template<typename T, typename CondtionObj>
-T* dFindNextElementInTree(T*  parent, T* cur, CondtionObj& funObj) {
+T* dFindNextElementInTree(T*  parent, T* cur, CondtionObj& funObj)
+{
     assert(parent);
     assert(cur);
     bool existCur = parent == cur;
     auto& children = parent->getChildren();
-    for (auto & e : children) {
-        if (existCur && funObj(e)) {
+    for (auto& e : children)
+    {
+        if (existCur && funObj(e))
+        {
             return e;
         }
-        if (e == cur) {
+        if (e == cur)
+        {
             existCur = true;
         }
         T* tar = dFindNextElementInTree(e, cur, funObj);
@@ -88,7 +98,8 @@ T* dFindNextElementInTree(T*  parent, T* cur, CondtionObj& funObj) {
     return nullptr;
 }
 template<typename T, typename CondtionObj>
-T* dFindNextElementInTreeCycle(T*  parent, T* cur, CondtionObj& funObj) {
+T* dFindNextElementInTreeCycle(T*  parent, T* cur, CondtionObj& funObj)
+{
     Array<T*> dstArray;
     bool begin = parent == cur;
     bool end = parent == cur;
@@ -97,25 +108,28 @@ T* dFindNextElementInTreeCycle(T*  parent, T* cur, CondtionObj& funObj) {
     return dFindNextElementInArray(dstArray, cur, funObj);
 }
 template<typename T>
-void takeElementToTopFromTreeToVector(Array<T*>& dstArray, T* parent, T* cur, bool& begin) {
+void takeElementToTopFromTreeToVector(Array<T*>& dstArray, T* parent, T* cur, bool& begin)
+{
     if (parent == cur)
         begin = true;
     if (begin)
         dstArray.push_back(parent);
     auto& children = parent->getChildren();
-    for (auto & a : children)
+    for (auto& a : children)
         takeElementToTopFromTreeToVector(dstArray, a, cur, begin);
 }
 template<typename T>
-void takeElementToVectorUntil(Array<T*>& dstArray, T* parent, T* cur, bool& end) {
-    if (parent == cur) {
+void takeElementToVectorUntil(Array<T*>& dstArray, T* parent, T* cur, bool& end)
+{
+    if (parent == cur)
+    {
         end = true;
         return;
     }
     if (!end)
         dstArray.push_back(parent);
     auto& children = parent->getChildren();
-    for (auto & a : children)
+    for (auto& a : children)
         takeElementToVectorUntil(dstArray, a, cur, end);
 
 }
