@@ -159,6 +159,9 @@
     <ClInclude Include="md5.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Time_.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CommandLine.cpp">
@@ -174,6 +177,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="md5.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Time_.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
