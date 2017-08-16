@@ -23,6 +23,7 @@
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Common</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <ProjectName>basic</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -181,16 +182,14 @@
     <ClInclude Include="Value.h" />
     <ClInclude Include="Vector3.h" />
     <ClInclude Include="WeakPointer.h" />
-    <ClInclude Include="XBase.h" />
+    <ClInclude Include="Basic.h" />
     <ClInclude Include="XEnum.h" />
     <ClInclude Include="XIndex.h" />
-    <ClInclude Include="XList.h" />
     <ClInclude Include="XMath.h" />
     <ClInclude Include="XMultiMap.h" />
-    <ClInclude Include="XProp.h" />
-    <ClInclude Include="XSingleton.h" />
-    <ClInclude Include="XStaticArray.h" />
-    <ClInclude Include="XTime.h" />
+    <ClInclude Include="Singleton.h" />
+    <ClInclude Include="SArray.h" />
+    <ClInclude Include="TimeDim.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="base.cpp" />

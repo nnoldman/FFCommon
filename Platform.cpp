@@ -13,7 +13,11 @@
 #pragma comment(lib,"uuid.so")
 #endif
 
-void Platform::sleep(u32 time) {
+namespace Basic
+{
+
+void Platform::sleep(u32 time)
+{
 #ifdef _WIN32
     Sleep(time);
 #endif
@@ -21,24 +25,27 @@ void Platform::sleep(u32 time) {
 
 #include <sys\stat.h>
 
-bool Platform::isPath(const char* str) {
+bool Platform::isPath(const char* str)
+{
     struct stat info;
     stat(str, &info);
     return (((info.st_mode) & S_IFMT) == S_IFDIR);
 }
 
-GUID generateGuid() {
+GUID generateGuid()
+{
     GUID guid;
 #ifdef WIN32
     CoCreateGuid(&guid);
 #else
-    uuid_generate(reinterpret_cast<unsigned char *>(&guid));
+    uuid_generate(reinterpret_cast<unsigned char*>(&guid));
 #endif
     return guid;
 }
 
 
-std::string getGUIDString(const GUID &guid, const char* fmt) {
+std::string getGUIDString(const GUID& guid, const char* fmt)
+{
     char buf[64] = { 0 };
 #ifdef __GNUC__
     snprintf(
@@ -56,12 +63,15 @@ std::string getGUIDString(const GUID &guid, const char* fmt) {
     return std::string(buf);
 }
 
-std::string Platform::generateGUIDString() {
+std::string Platform::generateGUIDString()
+{
     GUID guid = generateGuid();
     return getGUIDString(guid, "{%08X-%04X-%04X-%02X%02X-%02X%02X%02X%02X%02X%02X}");
 }
 
-std::string Platform::generateGUIDSimpleString() {
+std::string Platform::generateGUIDSimpleString()
+{
     GUID guid = generateGuid();
     return getGUIDString(guid, "%08X%04X%04X%02X%02X%02X%02X%02X%02X%02X%02X");
+}
 }
