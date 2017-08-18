@@ -6,14 +6,15 @@
 #include "Rapidxml\rapidxml_help.hpp"
 //--------------------------------------------------------------------------------------------------
 
-class RapidxmlLoader {
-  public:
+class RapidxmlLoader
+{
+public:
     RapidxmlLoader(const char* name);
     ~RapidxmlLoader(void);
 
     bool loadFile();
     CXRapidxmlNode* getRootNode();
-  protected:
+protected:
     bool loadFile(const char* name);
 
     const char* mFileName;
@@ -25,44 +26,51 @@ class RapidxmlLoader {
     Char* mBuffer;
 };
 inline RapidxmlLoader::RapidxmlLoader(const char* name)
-    : mFileName(name) {
+    : mFileName(name)
+{
 }
 
-inline RapidxmlLoader::~RapidxmlLoader(void) {
+inline RapidxmlLoader::~RapidxmlLoader(void)
+{
     mFileLoader.Close();
 
     dSafeDelete(mBuffer);
 }
 
-inline bool RapidxmlLoader::loadFile(const char* name) {
+inline bool RapidxmlLoader::loadFile(const char* name)
+{
     CXASSERT_RETURN_FALSE(mFileLoader.OpenFile(name));
 
     mBuffer = new Char[mFileLoader.GetBufferSize() + 1];
     memset(mBuffer, 0, mFileLoader.GetBufferSize() + 1);
     mFileLoader.ReadToBuffer(mBuffer);
-    mRapidxmlDoc.parse<rapidxml::parse_default>(mBuffer);
     mFileLoader.Close();
+    mRapidxmlDoc.parse<rapidxml::parse_default>(mBuffer);
     return true;
 }
 
-inline CXRapidxmlNode* RapidxmlLoader::getRootNode() {
+inline CXRapidxmlNode* RapidxmlLoader::getRootNode()
+{
     return mRapidxmlDoc.first_node();
 }
 
-inline bool RapidxmlLoader::loadFile() {
+inline bool RapidxmlLoader::loadFile()
+{
     CXASSERT_RETURN_FALSE(mFileName);
     return loadFile(mFileName);
 }
 
 inline CXXMLHelper::CXXMLHelper(CXXMLNodeStack& stack, CXRapidxmlNode*& n, const char* nodeName)
     : mNodeStack(stack)
-    , mNode(n) {
+    , mNode(n)
+{
     if (mNode)
         mNodeStack.push(mNode);
     mNode = mNode->first_node(nodeName);
 }
 
-inline CXXMLHelper::~CXXMLHelper() {
+inline CXXMLHelper::~CXXMLHelper()
+{
     mNode = mNodeStack.top();
     mNodeStack.pop();
 }

@@ -216,7 +216,7 @@ inline Value::Value(const Value& var)
 {
     this->u64_ = var.u64_;
     this->double_ = var.double_;
-
+    this->type_ = var.type_;
     if (this->type_ == ValueType::String)
     {
         this->string_ = new string();

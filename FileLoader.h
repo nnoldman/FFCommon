@@ -29,7 +29,7 @@ inline bool FileLoader::OpenFile(const char* name)
 {
     CXASSERT_RETURN_FALSE(name);
 
-    CXASSERT_RETURN_FALSE(!fopen_s(&mFile, name, "a+"));
+    CXASSERT_RETURN_FALSE(!fopen_s(&mFile, name, "r"));
     fseek(mFile, 0, SEEK_END);
     mFileSize = ftell(mFile);
     fseek(mFile, 0, SEEK_SET);
