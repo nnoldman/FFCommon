@@ -4,27 +4,32 @@
 using namespace std;
 
 template<typename RET = void>
-class Delegate {
+class Delegate
+{
     typedef std::function<RET()> FunctionObjectType;
-    class Functor {
-      public:
+    class Functor
+    {
+    public:
         intptr_t functionPtr;
         intptr_t objectPtr;
         FunctionObjectType functionObject;
     };
-  private:
+private:
     vector<Functor*> mFunctors;
-  public:
-    ~Delegate() {
-        for (auto iter = mFunctors.begin(); iter != mFunctors.end(); ++iter) {
+public:
+    ~Delegate()
+    {
+        for (auto iter = mFunctors.begin(); iter != mFunctors.end(); ++iter)
+        {
             auto functor = *iter;
             delete functor;
         }
         mFunctors.clear();
     }
-  public:
+public:
     template<typename T>
-    void add(RET(T::*func)(), T* obj) {
+    void add(RET(T::*func)(), T* obj)
+    {
         intptr_t memberPtr = (intptr_t)(&func);
         intptr_t objPtr = (intptr_t)obj;
         assert(nullptr == check(memberPtr, objPtr));
@@ -37,20 +42,25 @@ class Delegate {
     }
 
     template<typename T>
-    void remove(RET(T::*func)(), T* obj) {
+    void remove(RET(T::*func)(), T* obj)
+    {
         intptr_t memberPtr = (intptr_t)(&func);
         intptr_t objPtr = (intptr_t)obj;
-        for (auto iter = mFunctors.begin(); iter != mFunctors.end(); ++iter) {
+        for (auto iter = mFunctors.begin(); iter != mFunctors.end(); ++iter)
+        {
             auto functor = *iter;
-            if (functor->functionPtr == memberPtr && functor->objectPtr == objPtr) {
+            if (functor->functionPtr == memberPtr && functor->objectPtr == objPtr)
+            {
                 mFunctors.erase(iter);
                 break;
             }
         }
     }
 
-    Functor* check(intptr_t memberPtr, intptr_t objPtr) {
-        for (auto iter = mFunctors.begin(); iter != mFunctors.end(); ++iter) {
+    Functor* check(intptr_t memberPtr, intptr_t objPtr)
+    {
+        for (auto iter = mFunctors.begin(); iter != mFunctors.end(); ++iter)
+        {
             auto functor = *iter;
             if (functor->functionPtr == memberPtr && functor->objectPtr == objPtr)
                 return functor;
@@ -58,8 +68,10 @@ class Delegate {
         return nullptr;
     }
 
-    void invoke() {
-        for (auto iter = mFunctors.begin(); iter != mFunctors.end(); ++iter) {
+    void invoke()
+    {
+        for (auto iter = mFunctors.begin(); iter != mFunctors.end(); ++iter)
+        {
             auto functor = *iter;
             functor->functionObject();
         }
@@ -69,27 +81,32 @@ class Delegate {
 template<typename RET = void
          , typename Arg1 = void
          >
-class Delegate1 {
+class Delegate1
+{
     typedef std::function<RET(Arg1)> FunctionObjectType;
-    class Functor {
-      public:
+    class Functor
+    {
+    public:
         intptr_t functionPtr;
         intptr_t objectPtr;
         FunctionObjectType functionObject;
     };
-  private:
+private:
     vector<Functor*> mFunctors;
-  public:
-    ~Delegate1() {
-        for (auto iter = mFunctors.begin(); iter != mFunctors.end(); ++iter) {
+public:
+    ~Delegate1()
+    {
+        for (auto iter = mFunctors.begin(); iter != mFunctors.end(); ++iter)
+        {
             auto functor = *iter;
             delete functor;
         }
         mFunctors.clear();
     }
-  public:
+public:
     template<typename T>
-    void add(RET(T::*func)(Arg1), T* obj) {
+    void add(RET(T::*func)(Arg1), T* obj)
+    {
         intptr_t memberPtr = (intptr_t)(&func);
         intptr_t objPtr = (intptr_t)obj;
         assert(nullptr == check(memberPtr, objPtr));
@@ -103,12 +120,15 @@ class Delegate1 {
     }
 
     template<typename T>
-    void remove(RET(T::*func)(Arg1), T* obj) {
+    void remove(RET(T::*func)(Arg1), T* obj)
+    {
         intptr_t memberPtr = (intptr_t)(&func);
         intptr_t objPtr = (intptr_t)obj;
-        for (auto iter = mFunctors.begin(); iter != mFunctors.end(); ++iter) {
+        for (auto iter = mFunctors.begin(); iter != mFunctors.end(); ++iter)
+        {
             auto functor = *iter;
-            if (functor->functionPtr == memberPtr && functor->objectPtr == objPtr) {
+            if (functor->functionPtr == memberPtr && functor->objectPtr == objPtr)
+            {
                 delete functor;
                 mFunctors.erase(iter);
                 break;
@@ -116,8 +136,10 @@ class Delegate1 {
         }
     }
 
-    Functor* check(intptr_t memberPtr, intptr_t objPtr) {
-        for (auto iter = mFunctors.begin(); iter != mFunctors.end(); ++iter) {
+    Functor* check(intptr_t memberPtr, intptr_t objPtr)
+    {
+        for (auto iter = mFunctors.begin(); iter != mFunctors.end(); ++iter)
+        {
             auto functor = *iter;
             if (functor->functionPtr == memberPtr && functor->objectPtr == objPtr)
                 return functor;
@@ -125,8 +147,10 @@ class Delegate1 {
         return nullptr;
     }
 
-    void invoke(Arg1 arg1) {
-        for (auto iter = mFunctors.begin(); iter != mFunctors.end(); ++iter) {
+    void invoke(Arg1 arg1)
+    {
+        for (auto iter = mFunctors.begin(); iter != mFunctors.end(); ++iter)
+        {
             auto functor = *iter;
             functor->functionObject(arg1);
         }
@@ -137,27 +161,32 @@ template<typename RET = void
          , typename Arg1 = void
          , typename Arg2 = void
          >
-class Delegate2 {
+class Delegate2
+{
     typedef std::function<RET(Arg1, Arg2)> FunctionObjectType;
-    class Functor {
-      public:
+    class Functor
+    {
+    public:
         intptr_t functionPtr;
         intptr_t objectPtr;
         FunctionObjectType functionObject;
     };
-  private:
+private:
     vector<Functor*> mFunctors;
-  public:
-    ~Delegate2() {
-        for (auto iter = mFunctors.begin(); iter != mFunctors.end(); ++iter) {
+public:
+    ~Delegate2()
+    {
+        for (auto iter = mFunctors.begin(); iter != mFunctors.end(); ++iter)
+        {
             auto functor = *iter;
             delete functor;
         }
         mFunctors.clear();
     }
-  public:
+public:
     template<typename T>
-    void add(RET(T::*func)(Arg1, Arg2), T* obj) {
+    void add(RET(T::*func)(Arg1, Arg2), T* obj)
+    {
         intptr_t memberPtr = (intptr_t)(&func);
         intptr_t objPtr = (intptr_t)obj;
         assert(nullptr == check(memberPtr, objPtr));
@@ -171,12 +200,15 @@ class Delegate2 {
     }
 
     template<typename T>
-    void remove(RET(T::*func)(Arg1, Arg2), T* obj) {
+    void remove(RET(T::*func)(Arg1, Arg2), T* obj)
+    {
         intptr_t memberPtr = (intptr_t)(&func);
         intptr_t objPtr = (intptr_t)obj;
-        for (auto iter = mFunctors.begin(); iter != mFunctors.end(); ++iter) {
+        for (auto iter = mFunctors.begin(); iter != mFunctors.end(); ++iter)
+        {
             auto functor = *iter;
-            if (functor->functionPtr == memberPtr && functor->objectPtr == objPtr) {
+            if (functor->functionPtr == memberPtr && functor->objectPtr == objPtr)
+            {
                 delete functor;
                 mFunctors.erase(iter);
                 break;
@@ -184,8 +216,10 @@ class Delegate2 {
         }
     }
 
-    Functor* check(intptr_t memberPtr, intptr_t objPtr) {
-        for (auto iter = mFunctors.begin(); iter != mFunctors.end(); ++iter) {
+    Functor* check(intptr_t memberPtr, intptr_t objPtr)
+    {
+        for (auto iter = mFunctors.begin(); iter != mFunctors.end(); ++iter)
+        {
             auto functor = *iter;
             if (functor->functionPtr == memberPtr && functor->objectPtr == objPtr)
                 return functor;
@@ -193,8 +227,10 @@ class Delegate2 {
         return nullptr;
     }
 
-    void invoke(Arg1 arg1, Arg2 arg2) {
-        for (auto iter = mFunctors.begin(); iter != mFunctors.end(); ++iter) {
+    void invoke(Arg1 arg1, Arg2 arg2)
+    {
+        for (auto iter = mFunctors.begin(); iter != mFunctors.end(); ++iter)
+        {
             auto functor = *iter;
             functor->functionObject(arg1, arg2);
         }
@@ -206,27 +242,32 @@ template<typename RET = void
          , typename Arg2 = void
          , typename Arg3 = void
          >
-class Delegate3 {
+class Delegate3
+{
     typedef std::function<RET(Arg1, Arg2, Arg3)> FunctionObjectType;
-    class Functor {
-      public:
+    class Functor
+    {
+    public:
         intptr_t functionPtr;
         intptr_t objectPtr;
         FunctionObjectType functionObject;
     };
-  private:
+private:
     vector<Functor*> mFunctors;
-  public:
-    ~Delegate3() {
-        for (auto iter = mFunctors.begin(); iter != mFunctors.end(); ++iter) {
+public:
+    ~Delegate3()
+    {
+        for (auto iter = mFunctors.begin(); iter != mFunctors.end(); ++iter)
+        {
             auto functor = *iter;
             delete functor;
         }
         mFunctors.clear();
     }
-  public:
+public:
     template<typename T>
-    void add(RET(T::*func)(Arg1, Arg2, Arg3), T* obj) {
+    void add(RET(T::*func)(Arg1, Arg2, Arg3), T* obj)
+    {
         intptr_t memberPtr = (intptr_t)(&func);
         intptr_t objPtr = (intptr_t)obj;
         assert(nullptr == check(memberPtr, objPtr));
@@ -244,12 +285,15 @@ class Delegate3 {
     }
 
     template<typename T>
-    void remove(RET(T::*func)(Arg1, Arg2, Arg3), T* obj) {
+    void remove(RET(T::*func)(Arg1, Arg2, Arg3), T* obj)
+    {
         intptr_t memberPtr = (intptr_t)(&func);
         intptr_t objPtr = (intptr_t)obj;
-        for (auto iter = mFunctors.begin(); iter != mFunctors.end(); ++iter) {
+        for (auto iter = mFunctors.begin(); iter != mFunctors.end(); ++iter)
+        {
             auto functor = *iter;
-            if (functor->functionPtr == memberPtr && functor->objectPtr == objPtr) {
+            if (functor->functionPtr == memberPtr && functor->objectPtr == objPtr)
+            {
                 delete functor;
                 mFunctors.erase(iter);
                 break;
@@ -257,8 +301,10 @@ class Delegate3 {
         }
     }
 
-    Functor* check(intptr_t memberPtr, intptr_t objPtr) {
-        for (auto iter = mFunctors.begin(); iter != mFunctors.end(); ++iter) {
+    Functor* check(intptr_t memberPtr, intptr_t objPtr)
+    {
+        for (auto iter = mFunctors.begin(); iter != mFunctors.end(); ++iter)
+        {
             auto functor = *iter;
             if (functor->functionPtr == memberPtr && functor->objectPtr == objPtr)
                 return functor;
@@ -266,8 +312,10 @@ class Delegate3 {
         return nullptr;
     }
 
-    void invoke(Arg1 arg1, Arg1 arg2, Arg3 arg3) {
-        for (auto iter = mFunctors.begin(); iter != mFunctors.end(); ++iter) {
+    void invoke(Arg1 arg1, Arg1 arg2, Arg3 arg3)
+    {
+        for (auto iter = mFunctors.begin(); iter != mFunctors.end(); ++iter)
+        {
             auto functor = *iter;
             functor->functionObject(arg1, arg2, arg3);
         }
@@ -280,27 +328,32 @@ template<typename RET = void
          , typename Arg3 = void
          , typename Arg4 = void
          >
-class Delegate4 {
+class Delegate4
+{
     typedef std::function<RET(Arg1, Arg2, Arg3, Arg4)> FunctionObjectType;
-    class Functor {
-      public:
+    class Functor
+    {
+    public:
         intptr_t functionPtr;
         intptr_t objectPtr;
         FunctionObjectType functionObject;
     };
-  private:
+private:
     vector<Functor*> mFunctors;
-  public:
-    ~Delegate4() {
-        for (auto iter = mFunctors.begin(); iter != mFunctors.end(); ++iter) {
+public:
+    ~Delegate4()
+    {
+        for (auto iter = mFunctors.begin(); iter != mFunctors.end(); ++iter)
+        {
             auto functor = *iter;
             delete functor;
         }
         mFunctors.clear();
     }
-  public:
+public:
     template<typename T>
-    void add(RET(T::*func)(Arg1, Arg2, Arg3, Arg4), T* obj) {
+    void add(RET(T::*func)(Arg1, Arg2, Arg3, Arg4), T* obj)
+    {
         intptr_t memberPtr = (intptr_t)(&func);
         intptr_t objPtr = (intptr_t)obj;
         assert(nullptr == check(memberPtr, objPtr));
@@ -319,11 +372,14 @@ class Delegate4 {
     }
 
     template<typename T>
-    void remove(RET(T::*func)(Arg1, Arg2, Arg3, Arg4), T* obj) {
+    void remove(RET(T::*func)(Arg1, Arg2, Arg3, Arg4), T* obj)
+    {
         intptr_t memberPtr = (intptr_t)(&func);
         intptr_t objPtr = (intptr_t)obj;
-        for (auto iter = mFunctors.begin(); iter != mFunctors.end(); ++iter) {
-            if (iter->functionPtr == memberPtr && iter->objectPtr == objPtr) {
+        for (auto iter = mFunctors.begin(); iter != mFunctors.end(); ++iter)
+        {
+            if (iter->functionPtr == memberPtr && iter->objectPtr == objPtr)
+            {
                 delete functor;
                 mFunctors.erase(iter);
                 break;
@@ -331,8 +387,10 @@ class Delegate4 {
         }
     }
 
-    Functor* check(intptr_t memberPtr, intptr_t objPtr) {
-        for (auto iter = mFunctors.begin(); iter != mFunctors.end(); ++iter) {
+    Functor* check(intptr_t memberPtr, intptr_t objPtr)
+    {
+        for (auto iter = mFunctors.begin(); iter != mFunctors.end(); ++iter)
+        {
             auto functor = *iter;
             if (functor->functionPtr == memberPtr && functor->objectPtr == objPtr)
                 return functor;
@@ -340,8 +398,10 @@ class Delegate4 {
         return nullptr;
     }
 
-    void invoke(Arg1 arg1, Arg1 arg2, Arg3 arg3, Arg4 arg4) {
-        for (auto iter = mFunctors.begin(); iter != mFunctors.end(); ++iter) {
+    void invoke(Arg1 arg1, Arg1 arg2, Arg3 arg3, Arg4 arg4)
+    {
+        for (auto iter = mFunctors.begin(); iter != mFunctors.end(); ++iter)
+        {
             auto functor = *iter;
             functor->functionObject(arg1, arg2, arg3, arg4);
         }
@@ -355,27 +415,32 @@ template<typename RET = void
          , typename Arg4 = void
          , typename Arg5 = void
          >
-class Delegate5 {
+class Delegate5
+{
     typedef std::function<RET(Arg1, Arg2, Arg3, Arg4, Arg5)> FunctionObjectType;
-    class Functor {
-      public:
+    class Functor
+    {
+    public:
         intptr_t functionPtr;
         intptr_t objectPtr;
         FunctionObjectType functionObject;
     };
-  private:
+private:
     vector<Functor*> mFunctors;
-  public:
-    ~Delegate5() {
-        for (auto iter = mFunctors.begin(); iter != mFunctors.end(); ++iter) {
+public:
+    ~Delegate5()
+    {
+        for (auto iter = mFunctors.begin(); iter != mFunctors.end(); ++iter)
+        {
             auto functor = *iter;
             delete functor;
         }
         mFunctors.clear();
     }
-  public:
+public:
     template<typename T>
-    void add(RET(T::*func)(Arg1, Arg2, Arg3, Arg4, Arg5), T* obj) {
+    void add(RET(T::*func)(Arg1, Arg2, Arg3, Arg4, Arg5), T* obj)
+    {
         intptr_t memberPtr = (intptr_t)(&func);
         intptr_t objPtr = (intptr_t)obj;
         assert(nullptr == check(memberPtr, objPtr));
@@ -395,11 +460,14 @@ class Delegate5 {
     }
 
     template<typename T>
-    void remove(RET(T::*func)(Arg1, Arg2, Arg3, Arg4, Arg5), T* obj) {
+    void remove(RET(T::*func)(Arg1, Arg2, Arg3, Arg4, Arg5), T* obj)
+    {
         intptr_t memberPtr = (intptr_t)(&func);
         intptr_t objPtr = (intptr_t)obj;
-        for (auto iter = mFunctors.begin(); iter != mFunctors.end(); ++iter) {
-            if (iter->functionPtr == memberPtr && iter->objectPtr == objPtr) {
+        for (auto iter = mFunctors.begin(); iter != mFunctors.end(); ++iter)
+        {
+            if (iter->functionPtr == memberPtr && iter->objectPtr == objPtr)
+            {
                 delete functor;
                 mFunctors.erase(iter);
                 break;
@@ -407,8 +475,10 @@ class Delegate5 {
         }
     }
 
-    Functor* check(intptr_t memberPtr, intptr_t objPtr) {
-        for (auto iter = mFunctors.begin(); iter != mFunctors.end(); ++iter) {
+    Functor* check(intptr_t memberPtr, intptr_t objPtr)
+    {
+        for (auto iter = mFunctors.begin(); iter != mFunctors.end(); ++iter)
+        {
             auto functor = *iter;
             if (functor->functionPtr == memberPtr && functor->objectPtr == objPtr)
                 return functor;
@@ -416,8 +486,10 @@ class Delegate5 {
         return nullptr;
     }
 
-    void invoke(Arg1 arg1, Arg1 arg2, Arg3 arg3, Arg4 arg4, Arg5 arg5) {
-        for (auto iter = mFunctors.begin(); iter != mFunctors.end(); ++iter) {
+    void invoke(Arg1 arg1, Arg1 arg2, Arg3 arg3, Arg4 arg4, Arg5 arg5)
+    {
+        for (auto iter = mFunctors.begin(); iter != mFunctors.end(); ++iter)
+        {
             auto functor = *iter;
             functor->functionObject(arg1, arg2, arg3, arg4, arg5);
         }

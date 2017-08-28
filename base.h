@@ -272,11 +272,4 @@ void dCast(T1* dst, T2 src)
     *((T2*)dst) = src;
 }
 
-
-
-
-
-
-
-
 #endif // base_h__

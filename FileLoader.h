@@ -1,52 +1,61 @@
 #pragma once
 
 #include <io.h>
-class FileLoader {
-  public:
-    FileLoader( void );
-    ~FileLoader( void );
+class FileLoader
+{
+public:
+    FileLoader(void);
+    ~FileLoader(void);
 
-    bool	OpenFile( const char* name );
+    bool	OpenFile(const char* name);
     u32	GetBufferSize();
     void	Close();
-    void	ReadToBuffer( Char* buffer );
-  protected:
+    void	ReadToBuffer(Char* buffer);
+protected:
     FILE* mFile;
     u32 mFileSize;
 };
-inline FileLoader::FileLoader ( void )
-    : mFile ( 0 ) {
+inline FileLoader::FileLoader(void)
+    : mFile(0)
+{
     Close();
 }
 
-inline FileLoader::~FileLoader ( void ) {
+inline FileLoader::~FileLoader(void)
+{
 }
 
-inline bool FileLoader::OpenFile ( const char* name ) {
-    CXASSERT_RETURN_FALSE ( name );
+inline bool FileLoader::OpenFile(const char* name)
+{
+    CXASSERT_RETURN_FALSE(name);
 
-    CXASSERT_RETURN_FALSE ( !fopen_s ( &mFile, name, "a+" ) );
-    fseek ( mFile, 0, SEEK_END );
-    mFileSize = ftell ( mFile );
-    fseek ( mFile, 0, SEEK_SET );
+    CXASSERT_RETURN_FALSE(!fopen_s(&mFile, name, "r"));
+    fseek(mFile, 0, SEEK_END);
+    mFileSize = ftell(mFile);
+    fseek(mFile, 0, SEEK_SET);
     return true;
 }
 
 
 
-inline u32 FileLoader::GetBufferSize() {
+inline u32 FileLoader::GetBufferSize()
+{
     return mFileSize;
 }
 
-inline void FileLoader::Close() {
-    if ( mFile ) {
-        fclose ( mFile );
+inline void FileLoader::Close()
+{
+    if (mFile)
+    {
+        fclose(mFile);
         mFile = nullptr;
     }
 }
 
-inline void FileLoader::ReadToBuffer ( Char* buffer ) {
-    if ( mFile && buffer ) {
-        fread ( buffer, 1, mFileSize, mFile );
+inline void FileLoader::ReadToBuffer(Char* buffer)
+{
+    if (mFile && buffer)
+    {
+        fread(buffer, 1, mFileSize, mFile);
     }
 }

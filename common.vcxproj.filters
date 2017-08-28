@@ -126,16 +126,10 @@
     <ClInclude Include="WeakPointer.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="XBase.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="XEnum.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="XIndex.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="XList.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="XMath.h">
@@ -144,22 +138,22 @@
     <ClInclude Include="XMultiMap.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="XProp.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="XSingleton.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="XStaticArray.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="XTime.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="md5.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Time_.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="SArray.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="TimeDim.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Singleton.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Basic.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,5 +1,6 @@
-#ifndef uBuffer_h__
-#define uBuffer_h__
+#ifndef Buffer_h__
+#define Buffer_h__
+
 //-------------------------------------------------------------------------
 /**
 	@brief
@@ -253,5 +254,4 @@ inline Buffer& Buffer::operator=(const char* str)
 }
 
 }
-
-#endif // uBuffer_h__
+#endif // Buffer_h__

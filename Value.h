@@ -1,9 +1,11 @@
 #pragma once
 #include <string>
 using namespace std;
-namespace Basic {
+namespace Basic
+{
 
-enum ValueType {
+enum ValueType
+{
     U8,
     U16,
     U32,
@@ -19,8 +21,9 @@ enum ValueType {
     String,
 };
 
-class Value {
-  public:
+class Value
+{
+public:
     Value();
     ~Value();
     Value(const Value& var);
@@ -56,47 +59,60 @@ class Value {
     Value& operator=(const char* var);
 
 
-    operator u8 () {
+    operator u8()
+    {
         return this->u8_;
     }
-    operator u16 () {
+    operator u16()
+    {
         return this->u16_;
     }
-    operator u32 () {
+    operator u32()
+    {
         return this->u32_;
     }
-    operator u64 () {
+    operator u64()
+    {
         return this->u64_;
     }
-    operator s16 () {
+    operator s16()
+    {
         return this->s16_;
     }
-    operator int() {
+    operator int()
+    {
         return this->s32_;
     }
-    operator s64 () {
+    operator s64()
+    {
         return this->s64_;
     }
-    operator bool() {
+    operator bool()
+    {
         return this->bool_;
     }
-    operator char() {
+    operator char()
+    {
         return this->char_;
     }
-    operator const char*() {
+    operator const char* ()
+    {
         return this->string_ ? this->string_->c_str() : nullptr;
     }
-    operator float() {
+    operator float()
+    {
         return this->float_;
     }
-    operator double() {
+    operator double()
+    {
         return this->double_;
     }
 
     string toString();
-  private:
+private:
     ValueType type_;
-    union {
+    union
+    {
         u8 u8_;
         u16 u16_;
         u32 u32_;
@@ -116,188 +132,217 @@ class Value {
 }
 
 
-namespace Basic {
-inline Value::Value() {
+namespace Basic
+{
+inline Value::Value()
+{
 }
 
-inline Value::Value(int var) {
+inline Value::Value(int var)
+{
     this->s32_ = var;
     type_ = ValueType::S32;
 }
 
-inline Value::Value(char var) {
+inline Value::Value(char var)
+{
     this->char_ = var;
     type_ = ValueType::S8;
 }
 
-inline Value::Value(u16 var) {
+inline Value::Value(u16 var)
+{
     this->u16_ = var;
     type_ = ValueType::U16;
 }
 
-inline Value::Value(u32 var) {
+inline Value::Value(u32 var)
+{
     this->u32_ = var;
     type_ = ValueType::U32;
 }
 
-inline Value::Value(string var) {
+inline Value::Value(string var)
+{
     this->string_ = new string();
     *this->string_ = var;
     this->type_ = ValueType::String;
 }
 
-inline Value::Value(bool var) {
+inline Value::Value(bool var)
+{
     this->bool_ = var;
     type_ = ValueType::Bool;
 }
 
-inline Value::Value(u64 var) {
+inline Value::Value(u64 var)
+{
     this->u64_ = var;
     type_ = ValueType::U64;
 }
 
-inline Value::Value(s16 var) {
+inline Value::Value(s16 var)
+{
     this->s16_ = var;
     type_ = ValueType::S16;
 }
 
 
-inline Value::Value(s64 var) {
+inline Value::Value(s64 var)
+{
     this->s64_ = var;
     type_ = ValueType::S64;
 }
 
-inline Value::Value(float var) {
+inline Value::Value(float var)
+{
     this->float_ = var;
     type_ = ValueType::Float;
 }
 
-inline Value::Value(double var) {
+inline Value::Value(double var)
+{
     this->double_ = var;
     type_ = ValueType::Double;
 }
 
-inline Value::Value(u8 var) {
+inline Value::Value(u8 var)
+{
     this->u8_ = var;
     type_ = ValueType::U8;
 }
 
-inline Value::Value(const Value& var) {
-    this->type_ = var.type_;
-    this->u8_ = var.u8_;
-    this->u16_ = var.u16_;
-    this->u32_ = var.u32_;
+inline Value::Value(const Value& var)
+{
     this->u64_ = var.u64_;
-    this->char_ = var.char_;
-    this->s32_ = var.s32_;
-    this->s64_ = var.s64_;
-    this->bool_ = var.bool_;
-    this->float_ = var.float_;
     this->double_ = var.double_;
-
-    if (this->type_ == ValueType::String) {
+    this->type_ = var.type_;
+    if (this->type_ == ValueType::String)
+    {
         this->string_ = new string();
         if (var.string_)
             *this->string_ = *var.string_;
     }
 }
 
-inline Value::Value(const char* var) {
+inline Value::Value(const char* var)
+{
     this->string_ = new string();
     *this->string_ = var;
     this->type_ = ValueType::String;
 }
 
-inline Value& Value::operator=(const char* var) {
+inline Value& Value::operator=(const char* var)
+{
     this->string_ = new string();
     *this->string_ = var;
     this->type_ = ValueType::String;
     return *this;
 }
 
-inline std::string Value::toString() {
+inline std::string Value::toString()
+{
     char buffer[_CVTBUFSIZE] = { 0 };
-    switch (type_) {
-    case U8: {
-        _itoa_s(u8_, buffer, 10);
-    }
-    break;
-    case U16: {
-        _itoa_s(u16_, buffer, 10);
-    }
-    break;
-    case U32: {
-        _ultoa_s(u32_, buffer, 10);
-    }
-    break;
-    case U64: {
-        _ui64toa_s(u64_, buffer, _CVTBUFSIZE, 10);
-    }
-    break;
-    case S8: {
-        _itoa_s(char_, buffer, 10);
-    }
-    break;
-    case S16: {
-        _itoa_s(s16_, buffer, 10);
-    }
-    break;
-    case S32: {
-        _itoa_s(s32_, buffer, 10);
-    }
-    break;
-    case S64: {
-        _i64toa_s(s64_, buffer, _CVTBUFSIZE, 10);
-    }
-    break;
-    case Bool: {
-        if (bool_)
-            strcpy_s(buffer, "true");
-        else
-            strcpy_s(buffer, "false");
-    }
-    break;
-    case Float: {
-        int decimal;
-        int sign;
-        _fcvt_s(buffer, float_, _CVTBUFSIZE, 5, &decimal, &sign);
-    }
-    break;
-    case Double: {
-        _gcvt_s(buffer, _CVTBUFSIZE, double_, 5);
-    }
-    break;
-    case String: {
-        if(this->string_)
-            strcpy_s(buffer, string_->c_str());
-    }
-    break;
+    switch (type_)
+    {
+    case U8:
+        {
+            _itoa_s(u8_, buffer, 10);
+        }
+        break;
+    case U16:
+        {
+            _itoa_s(u16_, buffer, 10);
+        }
+        break;
+    case U32:
+        {
+            _ultoa_s(u32_, buffer, 10);
+        }
+        break;
+    case U64:
+        {
+            _ui64toa_s(u64_, buffer, _CVTBUFSIZE, 10);
+        }
+        break;
+    case S8:
+        {
+            _itoa_s(char_, buffer, 10);
+        }
+        break;
+    case S16:
+        {
+            _itoa_s(s16_, buffer, 10);
+        }
+        break;
+    case S32:
+        {
+            _itoa_s(s32_, buffer, 10);
+        }
+        break;
+    case S64:
+        {
+            _i64toa_s(s64_, buffer, _CVTBUFSIZE, 10);
+        }
+        break;
+    case Bool:
+        {
+            if (bool_)
+                strcpy_s(buffer, "true");
+            else
+                strcpy_s(buffer, "false");
+        }
+        break;
+    case Float:
+        {
+            int decimal;
+            int sign;
+            _fcvt_s(buffer, float_, _CVTBUFSIZE, 5, &decimal, &sign);
+        }
+        break;
+    case Double:
+        {
+            _gcvt_s(buffer, _CVTBUFSIZE, double_, 5);
+        }
+        break;
+    case String:
+        {
+            if (this->string_)
+                strcpy_s(buffer, string_->c_str());
+        }
+        break;
     default:
         break;
     }
     return buffer;
 }
 
-inline Basic::Value::~Value() {
-    if (this->type_ == ValueType::String && this->string_) {
+inline Basic::Value::~Value()
+{
+    if (this->type_ == ValueType::String && this->string_)
+    {
         dSafeDelete(this->string_);
     }
 }
 
-inline Basic::Value& Basic::Value::operator=(double var) {
+inline Basic::Value& Basic::Value::operator=(double var)
+{
     this->double_ = var;
     type_ = ValueType::Double;
     return *this;
 }
 
-inline Basic::Value& Basic::Value::operator=(float var) {
+inline Basic::Value& Basic::Value::operator=(float var)
+{
     this->float_ = var;
     type_ = ValueType::Float;
     return *this;
 }
 
-inline Basic::Value& Basic::Value::operator=(string var) {
-    if (this->string_ == nullptr) {
+inline Basic::Value& Basic::Value::operator=(string var)
+{
+    if (this->string_ == nullptr)
+    {
         this->string_ = new string();
     }
     *this->string_ = var;
@@ -305,55 +350,64 @@ inline Basic::Value& Basic::Value::operator=(string var) {
     return *this;
 }
 
-inline Basic::Value& Basic::Value::operator=(char var) {
+inline Basic::Value& Basic::Value::operator=(char var)
+{
     this->char_ = var;
     type_ = ValueType::S8;
     return *this;
 }
 
-inline Basic::Value& Basic::Value::operator=(bool var) {
+inline Basic::Value& Basic::Value::operator=(bool var)
+{
     this->bool_ = var;
     type_ = ValueType::Bool;
     return *this;
 }
 
-inline Basic::Value& Basic::Value::operator=(s64 var) {
+inline Basic::Value& Basic::Value::operator=(s64 var)
+{
     this->s64_ = var;
     type_ = ValueType::S64;
     return *this;
 }
 
-inline Basic::Value& Basic::Value::operator=(int var) {
+inline Basic::Value& Basic::Value::operator=(int var)
+{
     this->s32_ = var;
     type_ = ValueType::S32;
     return *this;
 }
 
-inline Basic::Value& Basic::Value::operator=(s16 var) {
+inline Basic::Value& Basic::Value::operator=(s16 var)
+{
     this->u16_ = var;
     type_ = ValueType::U16;
     return *this;
 }
 
-inline Basic::Value& Basic::Value::operator=(u64 var) {
+inline Basic::Value& Basic::Value::operator=(u64 var)
+{
     this->u64_ = var;
     type_ = ValueType::U64;
     return *this;
 }
 
-inline Basic::Value& Basic::Value::operator=(u32 var) {
+inline Basic::Value& Basic::Value::operator=(u32 var)
+{
     this->u32_ = var;
     type_ = ValueType::U32;
     return *this;
 }
 
-inline Basic::Value& Basic::Value::operator=(u16 var) {
+inline Basic::Value& Basic::Value::operator=(u16 var)
+{
     this->u16_ = var;
     type_ = ValueType::U16;
     return *this;
 }
 
-inline Basic::Value& Basic::Value::operator=(u8 var) {
+inline Basic::Value& Basic::Value::operator=(u8 var)
+{
     this->u8_ = var;
     type_ = ValueType::U8;
     return *this;

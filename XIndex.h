@@ -6,70 +6,90 @@
 #include <stdio.h>
 #pragma warning(push)
 #pragma warning(disable:4996)
-class CXIndex {
+namespace Basic
+{
+
+class Index
+{
     typedef unsigned int Type;
-  public:
-    enum {
+public:
+    enum
+    {
         InvalidIndex = ~0,
     };
-    CXIndex(void);
-    CXIndex(int i);
-    ~CXIndex(void);
-  protected:
+    Index(void);
+    Index(int i);
+    ~Index(void);
+protected:
     Type mValue;
-  public:
-    bool IsValid() const {
+public:
+    bool IsValid() const
+    {
         return mValue != InvalidIndex;
     }
-    Type Value() const {
+    Type Value() const
+    {
         return mValue;
     }
-    void ToString(std::string& str) {
+    void ToString(std::string& str)
+    {
         char buffer[64] = { 0 };
         sprintf(buffer, "%d", mValue);
         str = buffer;
         //_itoa(mValue,(char*)str.c_str(),10);
     }
-    CXIndex& operator= (Type v) {
+    Index& operator= (Type v)
+    {
         mValue = v;
         return *this;
     }
-    operator Type() {
+    operator Type()
+    {
         return mValue;
     }
-    CXIndex operator++ (int) {
-        CXIndex tmp = *this;
+    Index operator++ (int)
+    {
+        Index tmp = *this;
         ++mValue;
         return tmp;
     }
-    CXIndex& operator++() {
+    Index& operator++()
+    {
         ++mValue;
         return *this;
     }
-    CXIndex operator-- (int) {
-        CXIndex tmp = *this;
+    Index operator-- (int)
+    {
+        Index tmp = *this;
         --mValue;
         return tmp;
     }
-    CXIndex& operator--() {
+    Index& operator--()
+    {
         --mValue;
         return *this;
     }
 
-    bool operator== (const CXIndex& _Right) const {
+    bool operator== (const Index& _Right) const
+    {
         return mValue == _Right.mValue;
     }
 };
-inline bool operator < (const CXIndex& lhs, const CXIndex& rhs) {
+inline bool operator < (const Index& lhs, const Index& rhs)
+{
     return lhs.Value() < rhs.Value();
 }
 #pragma warning(pop)
-inline CXIndex::CXIndex(int i)
-    : mValue(i) {
+inline Index::Index(int i)
+    : mValue(i)
+{
 
 }
-inline CXIndex::CXIndex(void) {
+inline Index::Index(void)
+{
 }
-inline CXIndex::~CXIndex(void) {
+inline Index::~Index(void)
+{
+}
 }
 #endif // XIndex_h__

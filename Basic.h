@@ -2,7 +2,7 @@
 #define CXBase_h__
 //--------------------------------------------------------------------------------------------------
 #include "base.h"
-#include "XSingleton.h"
+#include "Singleton.h"
 #include "uString.h"
 #include "Map.h"
 
@@ -13,9 +13,8 @@
 #include "XMultiMap.h"
 #endif
 
-#include "XList.h"
 #include "Array.h"
-#include "XStaticArray.h"
+#include "SArray.h"
 #include "Stack.h"
 #include "BiTree.h"
 #include "RapidxmlLoader.h"
@@ -23,13 +22,13 @@
 #include "FileName.hpp"
 #include "XMath.h"
 #include "Delegate.h"
-#include "XProp.h"
 #include "Buffer.h"
+#include "CharBuffer.h"
 #include "XIndex.h"
 #include "uString.h"
 #include "Random.h"
 #include "Easer.h"
-#include "XTime.h"
+#include "TimeDim.h"
 #include "Vector3.h"
 #include "Color.h"
 #include "ObjectPool.h"
@@ -47,12 +46,15 @@
 #include "CommandLine.h"
 #include "Value.h"
 #include "Time_.h"
+#include "StringHelper.h"
 
 #define DeclareFilmObj(type)
 #define DeclareFilmObjBase(type,parentType)
 #define DeclareFilmTool
 #define DeclareFilmToolGlobal
 
+namespace Basic
+{
 /** @brief 查找一个数组或vector中cur之后的第一个符合条件的元素 **/
 template<typename Array, typename T, typename CondtionObj>
 T* dFindNextElementInArray(Array&  arr, T* cur, CondtionObj& funObj)
@@ -131,6 +133,8 @@ void takeElementToVectorUntil(Array<T*>& dstArray, T* parent, T* cur, bool& end)
     auto& children = parent->getChildren();
     for (auto& a : children)
         takeElementToVectorUntil(dstArray, a, cur, end);
+
+}
 
 }
 
