@@ -83,7 +83,12 @@ inline void StringHelper::setValue(const char* val, string* var)
 
 inline void StringHelper::setValue(const char* val, int* var)
 {
-    *var = stoi(val);
+    if (val == nullptr)
+        *var = 0;
+    else if (strlen(val) == 0)
+        *var = 0;
+    else
+        *var = stoi(val);
 }
 
 inline void StringHelper::setValue(const char* val, float* var)

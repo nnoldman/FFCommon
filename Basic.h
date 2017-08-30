@@ -47,6 +47,7 @@
 #include "Value.h"
 #include "Time_.h"
 #include "StringHelper.h"
+#include "Variable.h"
 
 #define DeclareFilmObj(type)
 #define DeclareFilmObjBase(type,parentType)
