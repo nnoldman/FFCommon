@@ -109,6 +109,10 @@ public:
     }
 
     string toString();
+    inline ValueType type() const
+    {
+        return type_;
+    }
 private:
     ValueType type_;
     union
